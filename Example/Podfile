@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Stackable_Example' do
+  pod 'Stackable', :path => '../'
+
+  target 'Stackable_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

@@ -1,0 +1,16 @@
+PODS:
+  - Stackable (0.1.0)
+
+DEPENDENCIES:
+  - Stackable (from `../`)
+
+EXTERNAL SOURCES:
+  Stackable:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Stackable: 7368cdd003e677cebc9f9d269fe0a477e681a9f3
+
+PODFILE CHECKSUM: 51d96aa852d3d196937c744535201e104dff2f0e
+
+COCOAPODS: 1.6.1
