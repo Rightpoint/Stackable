@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00200EB024D871C300F0818F /* Attachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EAF24D871C300F0818F /* Attachable.swift */; };
-		00200EB224D8720B00F0818F /* UIView+BindVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EB124D8720B00F0818F /* UIView+BindVisible.swift */; };
-		00200EB424D8738300F0818F /* Stackable+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EB324D8738300F0818F /* Stackable+Alignment.swift */; };
-		00200EB624D8776600F0818F /* Stackable+Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EB524D8776600F0818F /* Stackable+Spacing.swift */; };
-		00200EB824D87E9400F0818F /* Stackable+Hairlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EB724D87E9400F0818F /* Stackable+Hairlines.swift */; };
-		00200EBA24D8817700F0818F /* UIStackView+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EB924D8817700F0818F /* UIStackView+Utilities.swift */; };
+		00200EC224D9EB2600F0818F /* UIStackView+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */; };
+		00200EC324D9EB2600F0818F /* Stackable+Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */; };
+		00200EC424D9EB2600F0818F /* Stackable+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */; };
+		00200EC524D9EB2600F0818F /* UIView+BindVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBE24D9EB2600F0818F /* UIView+BindVisible.swift */; };
+		00200EC624D9EB2600F0818F /* Attachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBF24D9EB2600F0818F /* Attachable.swift */; };
+		00200EC724D9EB2600F0818F /* Stackable+Extended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EC024D9EB2600F0818F /* Stackable+Extended.swift */; };
+		00200EC824D9EB2600F0818F /* Stackable+Hairlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EC124D9EB2600F0818F /* Stackable+Hairlines.swift */; };
 		0062983024D32BA3007C707F /* Stackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0062982F24D32BA3007C707F /* Stackable.swift */; };
-		0062983224D4A071007C707F /* Stackable+Extended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0062983124D4A071007C707F /* Stackable+Extended.swift */; };
 		120C3C6960AF541FA3ACD680E3C3C3E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		3FDD4B0AD5003436C4E060CACA94A775 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		506DDB2FDF058AF963DA2FE01B59D79C /* Stackable-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF7FB277A747ECAA6DDEF0F6E02887D /* Stackable-dummy.m */; };
@@ -44,14 +44,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00200EAF24D871C300F0818F /* Attachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachable.swift; sourceTree = "<group>"; };
-		00200EB124D8720B00F0818F /* UIView+BindVisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+BindVisible.swift"; sourceTree = "<group>"; };
-		00200EB324D8738300F0818F /* Stackable+Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stackable+Alignment.swift"; sourceTree = "<group>"; };
-		00200EB524D8776600F0818F /* Stackable+Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stackable+Spacing.swift"; sourceTree = "<group>"; };
-		00200EB724D87E9400F0818F /* Stackable+Hairlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stackable+Hairlines.swift"; sourceTree = "<group>"; };
-		00200EB924D8817700F0818F /* UIStackView+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Utilities.swift"; sourceTree = "<group>"; };
+		00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIStackView+Utilities.swift"; path = "Stackable/UIStackView+Utilities.swift"; sourceTree = "<group>"; };
+		00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Spacing.swift"; path = "Stackable/Stackable+Spacing.swift"; sourceTree = "<group>"; };
+		00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Alignment.swift"; path = "Stackable/Stackable+Alignment.swift"; sourceTree = "<group>"; };
+		00200EBE24D9EB2600F0818F /* UIView+BindVisible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+BindVisible.swift"; path = "Stackable/UIView+BindVisible.swift"; sourceTree = "<group>"; };
+		00200EBF24D9EB2600F0818F /* Attachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Attachable.swift; path = Stackable/Attachable.swift; sourceTree = "<group>"; };
+		00200EC024D9EB2600F0818F /* Stackable+Extended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Extended.swift"; path = "Stackable/Stackable+Extended.swift"; sourceTree = "<group>"; };
+		00200EC124D9EB2600F0818F /* Stackable+Hairlines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Hairlines.swift"; path = "Stackable/Stackable+Hairlines.swift"; sourceTree = "<group>"; };
 		0062982F24D32BA3007C707F /* Stackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stackable.swift; path = Stackable/Stackable.swift; sourceTree = "<group>"; };
-		0062983124D4A071007C707F /* Stackable+Extended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stackable+Extended.swift"; sourceTree = "<group>"; };
 		09876B288C2DD066F095358BFE5B209B /* Stackable-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Stackable-Info.plist"; sourceTree = "<group>"; };
 		19B0ADC9CD06C9C4335FBA7BAC2AEE73 /* Pods-Stackable_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Stackable_Example-frameworks.sh"; sourceTree = "<group>"; };
 		1A0DED7C28E1EBA6FB48B9A39AC24B3C /* Pods-Stackable_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Stackable_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,13 +133,13 @@
 				CA44C7EA22413F5DA1235A3C596B414F /* Pod */,
 				0AEBD8EB099863ABBF32B82381D012D7 /* Support Files */,
 				0062982F24D32BA3007C707F /* Stackable.swift */,
-				00200EB524D8776600F0818F /* Stackable+Spacing.swift */,
-				00200EB724D87E9400F0818F /* Stackable+Hairlines.swift */,
-				00200EB324D8738300F0818F /* Stackable+Alignment.swift */,
-				00200EB124D8720B00F0818F /* UIView+BindVisible.swift */,
-				00200EB924D8817700F0818F /* UIStackView+Utilities.swift */,
-				00200EAF24D871C300F0818F /* Attachable.swift */,
-				0062983124D4A071007C707F /* Stackable+Extended.swift */,
+				00200EBF24D9EB2600F0818F /* Attachable.swift */,
+				00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */,
+				00200EC024D9EB2600F0818F /* Stackable+Extended.swift */,
+				00200EC124D9EB2600F0818F /* Stackable+Hairlines.swift */,
+				00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */,
+				00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */,
+				00200EBE24D9EB2600F0818F /* UIView+BindVisible.swift */,
 			);
 			name = Stackable;
 			path = ../..;
@@ -399,15 +399,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00200EB824D87E9400F0818F /* Stackable+Hairlines.swift in Sources */,
-				00200EB024D871C300F0818F /* Attachable.swift in Sources */,
-				00200EB624D8776600F0818F /* Stackable+Spacing.swift in Sources */,
+				00200EC324D9EB2600F0818F /* Stackable+Spacing.swift in Sources */,
+				00200EC724D9EB2600F0818F /* Stackable+Extended.swift in Sources */,
 				0062983024D32BA3007C707F /* Stackable.swift in Sources */,
-				0062983224D4A071007C707F /* Stackable+Extended.swift in Sources */,
-				00200EBA24D8817700F0818F /* UIStackView+Utilities.swift in Sources */,
-				00200EB224D8720B00F0818F /* UIView+BindVisible.swift in Sources */,
-				00200EB424D8738300F0818F /* Stackable+Alignment.swift in Sources */,
+				00200EC424D9EB2600F0818F /* Stackable+Alignment.swift in Sources */,
 				506DDB2FDF058AF963DA2FE01B59D79C /* Stackable-dummy.m in Sources */,
+				00200EC524D9EB2600F0818F /* UIView+BindVisible.swift in Sources */,
+				00200EC824D9EB2600F0818F /* Stackable+Hairlines.swift in Sources */,
+				00200EC624D9EB2600F0818F /* Attachable.swift in Sources */,
+				00200EC224D9EB2600F0818F /* UIStackView+Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
