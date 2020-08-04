@@ -58,24 +58,28 @@ public extension StackableExtension where ExtendedType == UIStackView {
 
 public extension StackableHairline {
         
-    mutating func inset(by margins: UIEdgeInsets) -> StackableHairline {
-        self.inset = margins
-        return self
+    func inset(by margins: UIEdgeInsets) -> StackableHairline {
+        var hairline = self
+        hairline.inset = margins
+        return hairline
     }
     
-    mutating func outset(to ancestor: UIView) -> StackableHairline {
-        self.outsetAncestor = ancestor
-        return self
+    func outset(to ancestor: UIView) -> StackableHairline {
+        var hairline = self
+        hairline.outsetAncestor = ancestor
+        return hairline
     }
     
-    mutating func thickness(_ thickness: CGFloat) -> StackableHairline {
-        self.thickness = thickness
-        return self
+    func thickness(_ thickness: CGFloat) -> StackableHairline {
+        var hairline = self
+        hairline.thickness = thickness
+        return hairline
     }
     
-    mutating func color(_ color: UIColor) -> StackableHairline {
-        self.color = color
-        return self
+    func color(_ color: UIColor) -> StackableHairline {
+        var hairline = self
+        hairline.color = color
+        return hairline
     }
     
 }
@@ -102,14 +106,17 @@ extension StackableHairline: Stackable {
         if let view = hairlineBeforeView {
             let hairline = makeHairline(stackView: stackView)
             stackView.stackable.insertArrangedSubview(hairline, aboveArrangedSubview: view)
+            applyOutsetConstraint(hairline: hairline, stackView: stackView)
         }
         if let view = hairlineAfterView {
             let hairline = makeHairline(stackView: stackView)
             stackView.stackable.insertArrangedSubview(hairline, belowArrangedSubview: view)
+            applyOutsetConstraint(hairline: hairline, stackView: stackView)
         }
         if allViews.isEmpty {
             let hairline = makeHairline(stackView: stackView)
             stackView.addArrangedSubview(hairline)
+            applyOutsetConstraint(hairline: hairline, stackView: stackView)
         }
     }
     
@@ -119,7 +126,12 @@ extension StackableHairline: Stackable {
             thickness: thickness,
             color: color
         )
-        
+                
+        hairline.bindVisible(toAllVisible: allViews)
+        return hairline
+    }
+    
+    private func applyOutsetConstraint(hairline: StackableHairlineView, stackView: UIStackView) {
         if let ancestor = outsetAncestor {
             switch stackView.axis {
             case .horizontal:
@@ -139,9 +151,6 @@ extension StackableHairline: Stackable {
                 break
             }
         }
-        
-        hairline.bindVisible(toAllVisible: allViews)
-        return hairline
     }
     
     private var allViews: [UIView] {

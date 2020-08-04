@@ -22,11 +22,10 @@ class ViewController: UIViewController {
         stack.stackable.add([
             "Hello"
                 .aligned(.right)
-                .inset(by: .init(top: 20, left: 0, bottom: 0, right: 10)),
+                .inset(by: .init(top: 0, left: 0, bottom: 0, right: 20)),
             UIStackView.stackable.hairline,
-            20,
+            20...,
             "World",
-            UIStackView.stackable.flexibleSpace,
         ])
         
         NSLayoutConstraint.activate([
@@ -38,4 +37,3 @@ class ViewController: UIViewController {
     }
 
 }
-
