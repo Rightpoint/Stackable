@@ -15,6 +15,29 @@ public protocol Stackable {
     func configure(stackView: UIStackView)
 }
 
+public protocol StackableView: Stackable {
+    func makeStackableView(for stackView: UIStackView) -> UIView
+}
+
+extension StackableView {
+    public func configure(stackView: UIStackView) {
+        let view = makeStackableView(for: stackView)
+        stackView.addArrangedSubview(view)
+    }
+}
+
+internal protocol StackableSpace: Stackable {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType
+}
+
+extension StackableSpace {
+    public func configure(stackView: UIStackView) {
+        let type = spaceType(for: stackView)
+        let item = StackableSpaceItem(type: type)
+        item.configure(stackView: stackView)
+    }
+}
+
 extension UIStackView: StackableExtended {}
 extension StackableExtension where ExtendedType == UIStackView {
 
@@ -29,104 +52,104 @@ extension StackableExtension where ExtendedType == UIStackView {
 }
 
 // MARK: - Stackable Conformance
-extension UIView: Stackable {
-    public func configure(stackView: UIStackView) {
-        stackView.addArrangedSubview(self)
+extension UIView: StackableView {
+    public func makeStackableView(for stackView: UIStackView) -> UIView {
+        return self
     }
 }
 
-extension UIViewController: Stackable {
-    public func configure(stackView: UIStackView) {
-        stackView.addArrangedSubview(view)
+extension UIViewController: StackableView {
+    public func makeStackableView(for stackView: UIStackView) -> UIView {
+        return view
     }
 }
 
-extension NSAttributedString: Stackable {
-    public func configure(stackView: UIStackView) {
+extension NSAttributedString: StackableView {
+    public func makeStackableView(for stackView: UIStackView) -> UIView {
         let label = UILabel()
         label.attributedText = self
         label.numberOfLines = 0
-        stackView.addArrangedSubview(label)
+        return label
     }
 }
 
-extension String: Stackable {
-    public func configure(stackView: UIStackView) {
-        NSAttributedString(string: self).configure(stackView: stackView)
+extension String: StackableView {
+    public func makeStackableView(for stackView: UIStackView) -> UIView {
+        return NSAttributedString(string: self).makeStackableView(for: stackView)
     }
 }
 
-extension UIImage: Stackable {
-    public func configure(stackView: UIStackView) {
+extension UIImage: StackableView {
+    public func makeStackableView(for stackView: UIStackView) -> UIView {
         let imageView = UIImageView(image: self)
         imageView.contentMode = .scaleAspectFit
-        imageView.configure(stackView: stackView)
+        return imageView
     }
 }
 
-extension CGFloat: Stackable {
-    public func configure(stackView: UIStackView) {
-        stackView.stackable.add([Space.smartSpace(self)])
+extension CGFloat: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        return .smartSpace(self)
     }
 }
 
-extension Int: Stackable {
-    public func configure(stackView: UIStackView) {
-        CGFloat(self).configure(stackView: stackView)
+extension Int: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        return CGFloat(self).spaceType(for: stackView)
     }
 }
 
-extension Float: Stackable {
-    public func configure(stackView: UIStackView) {
-        CGFloat(self).configure(stackView: stackView)
+extension Float: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        CGFloat(self).spaceType(for: stackView)
     }
 }
 
-extension ClosedRange: Stackable {
-    public func configure(stackView: UIStackView) {
+extension ClosedRange: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
         switch (lowerBound, upperBound) {
         case let (lower, upper) as (CGFloat, CGFloat):
-            stackView.stackable.add(Space.flexibleSpace(.range(lower...upper)))
+            return .flexibleSpace(.range(lower...upper))
         case let (lower, upper) as (Int, Int):
-            stackView.stackable.add(Space.flexibleSpace(.range(CGFloat(lower)...CGFloat(upper))))
+            return .flexibleSpace(.range(CGFloat(lower)...CGFloat(upper)))
         case let (lower, upper) as (Float, Float):
-            stackView.stackable.add(Space.flexibleSpace(.range(CGFloat(lower)...CGFloat(upper))))
+            return .flexibleSpace(.range(CGFloat(lower)...CGFloat(upper)))
         case let (lower, upper) as (Double, Double):
-            stackView.stackable.add(Space.flexibleSpace(.range(CGFloat(lower)...CGFloat(upper))))
+            return .flexibleSpace(.range(CGFloat(lower)...CGFloat(upper)))
         default:
             preconditionFailure("unsupported range bound: \(Bound.self)")
         }
     }
 }
 
-extension PartialRangeFrom: Stackable {
-    public func configure(stackView: UIStackView) {
+extension PartialRangeFrom: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
         switch lowerBound {
         case let lower as CGFloat:
-            stackView.stackable.add(Space.flexibleSpace(.atLeast(lower)))
+            return .flexibleSpace(.atLeast(lower))
         case let lower as Int:
-            stackView.stackable.add(Space.flexibleSpace(.atLeast(CGFloat(lower))))
+            return .flexibleSpace(.atLeast(CGFloat(lower)))
         case let lower as Float:
-            stackView.stackable.add(Space.flexibleSpace(.atLeast(CGFloat(lower))))
+            return .flexibleSpace(.atLeast(CGFloat(lower)))
         case let lower as Double:
-            stackView.stackable.add(Space.flexibleSpace(.atLeast(CGFloat(lower))))
+            return .flexibleSpace(.atLeast(CGFloat(lower)))
         default:
             preconditionFailure("unsupported range bound: \(Bound.self)")
         }
     }
 }
 
-extension PartialRangeThrough: Stackable {
-    public func configure(stackView: UIStackView) {
+extension PartialRangeThrough: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
         switch upperBound {
         case let upper as CGFloat:
-            stackView.stackable.add(Space.flexibleSpace(.atMost(upper)))
+            return .flexibleSpace(.atMost(upper))
         case let upper as Int:
-            stackView.stackable.add(Space.flexibleSpace(.atMost(CGFloat(upper))))
+            return .flexibleSpace(.atMost(CGFloat(upper)))
         case let upper as Float:
-            stackView.stackable.add(Space.flexibleSpace(.atMost(CGFloat(upper))))
+            return .flexibleSpace(.atMost(CGFloat(upper)))
         case let upper as Double:
-            stackView.stackable.add(Space.flexibleSpace(.atMost(CGFloat(upper))))
+            return .flexibleSpace(.atMost(CGFloat(upper)))
         default:
             preconditionFailure("unsupported range bound: \(Bound.self)")
         }
@@ -154,61 +177,6 @@ extension Array: Stackable where Element: Stackable {
         forEach { $0.configure(stackView: stackView) }
     }
 
-}
-
-public extension StackableExtension where ExtendedType == UIStackView {
-    static func space(_ space: CGFloat) -> Space {
-        return Space.smartSpace(space)
-    }
-    static func space(after view: UIView, _ space: CGFloat) -> Space {
-        return Space.spaceAfter(view, space)
-    }
-    static func space(before view: UIView, _ space: CGFloat) -> Space {
-        return Space.spaceBefore(view, space)
-    }
-    static func space(afterGroup group: [UIView], _ space: CGFloat) -> Space {
-        return Space.spaceAfterGroup(group, space)
-    }
-    static func constantSpace(_ space: CGFloat) -> Space {
-        return Space.constantSpace(space)
-    }
-    static func flexibleSpace(_ flexibleSpace: Space.FlexibleSpace = .atLeast(0)) -> Space {
-        return Space.flexibleSpace(flexibleSpace)
-    }
-    static var flexibleSpace: Space {
-        return UIStackView.stackable.flexibleSpace()
-    }
-}
-
-public extension StackableExtension where ExtendedType == UIStackView {
-    static var hairline: Hairline {
-        return Hairline.after(nil)
-    }
-    static func hairline(after view: UIView) -> Hairline {
-        return Hairline.after(view)
-    }
-    static func hairlineBetween(_ view1: UIView?, _ view2: UIView?) -> Hairline {
-        return Hairline.between(view1, view2)
-    }
-    static func hairline(before view: UIView?) -> Hairline {
-        return Hairline.before(view)
-    }
-    static func hairline(around view: UIView?) -> Hairline {
-        return Hairline.around(view)
-    }
-    static func hairlines(between views: [UIView]) -> [Hairline] {
-        let pairs = zip(views, views.dropFirst())
-        return pairs.map { UIStackView.stackable.hairlineBetween($0.0, $0.1) }
-    }
-    static func hairlines(after views: [UIView]) -> [Hairline] {
-        return views.map { UIStackView.stackable.hairline(after: $0) }
-    }
-    static func hairlines(around views: [UIView]) -> [Hairline] {
-        return views.map { $0 == views.first
-            ? UIStackView.stackable.hairline(around: $0)
-            : UIStackView.stackable.hairline(after: $0)
-        }
-    }
 }
 
 // MARK: - Support

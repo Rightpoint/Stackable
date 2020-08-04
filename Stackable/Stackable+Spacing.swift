@@ -8,31 +8,59 @@
 import Foundation
 
 // MARK: - Stackable Spaces
-public enum Space {
-    case smartSpace(CGFloat)
-    case constantSpace(CGFloat)
-    case spaceBefore(UIView, CGFloat)
-    case spaceAfter(UIView, CGFloat)
-    case spaceAfterGroup([UIView], CGFloat)
-    case flexibleSpace(FlexibleSpace)
-
-    public enum FlexibleSpace {
-        case atLeast(CGFloat)
-        case range(ClosedRange<CGFloat>)
-        case atMost(CGFloat)
+public struct StackableSpaceItem {
+    internal let type: SpaceType
+    
+    internal enum SpaceType {
+        case smartSpace(CGFloat)
+        case constantSpace(CGFloat)
+        case spaceBefore(UIView, CGFloat)
+        case spaceAfter(UIView, CGFloat)
+        case spaceAfterGroup([UIView], CGFloat)
+        case flexibleSpace(StackableFlexibleSpace)
     }
 }
 
-extension Space: Stackable {
+public enum StackableFlexibleSpace {
+     case atLeast(CGFloat)
+     case range(ClosedRange<CGFloat>)
+     case atMost(CGFloat)
+ }
+
+public extension StackableExtension where ExtendedType == UIStackView {
+    static func space(_ space: CGFloat) -> StackableSpaceItem {
+        return .init(type: .smartSpace(space))
+    }
+    static func space(after view: UIView, _ space: CGFloat) -> StackableSpaceItem {
+        return .init(type: .spaceAfter(view, space))
+    }
+    static func space(before view: UIView, _ space: CGFloat) -> StackableSpaceItem {
+        return .init(type: .spaceBefore(view, space))
+    }
+    static func space(afterGroup group: [UIView], _ space: CGFloat) -> StackableSpaceItem {
+        return .init(type: .spaceAfterGroup(group, space))
+    }
+    static func constantSpace(_ space: CGFloat) -> StackableSpaceItem {
+        return .init(type: .constantSpace(space))
+    }
+    static func flexibleSpace(_ flexibleSpace: StackableFlexibleSpace = .atLeast(0)) -> StackableSpaceItem {
+        return .init(type: .flexibleSpace(flexibleSpace))
+    }
+    static var flexibleSpace: StackableSpaceItem {
+        return UIStackView.stackable.flexibleSpace()
+    }
+}
+
+extension StackableSpaceItem: Stackable {
 
     public func configure(stackView: UIStackView) {
-        switch self {
+        switch type {
         case let .smartSpace(space):
             if let view = stackView.arrangedSubviews.last {
-                Space.spaceAfter(view, space).configure(stackView: stackView)
+                StackableSpaceItem(type: .spaceAfter(view, space)).configure(stackView: stackView)
             }
             else {
-                Space.constantSpace(space).configure(stackView: stackView)
+                StackableSpaceItem(type: .constantSpace(space)).configure(stackView: stackView)
             }
 
         case let .constantSpace(space):

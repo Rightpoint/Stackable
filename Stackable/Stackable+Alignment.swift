@@ -7,65 +7,93 @@
 
 import Foundation
 
-public protocol StackAlignable: Stackable {
+struct StackableViewItem {
+    let makeView: (UIStackView) -> UIView
+    var alignment: StackableAlignment = []
+    var inset: UIEdgeInsets = .zero
+}
+
+public extension StackableView {
     
-    func aligned(_ alignment: Alignment) -> AlignmentView
-    func inset(by margins: UIEdgeInsets) -> AlignmentView
+    func aligned(_ alignment: StackableAlignment) -> StackableView {
+        return StackableViewItem(
+            makeView: makeStackableView(for:), //TODO: retain cycle?
+            alignment: alignment
+        )
+    }
+    
+    func inset(by margins: UIEdgeInsets) -> StackableView {
+        return StackableViewItem(
+            makeView: makeStackableView(for:), //TODO: retain cycle?
+            inset: margins
+        )
+    }
     
 }
 
-extension Stackable where Self: UIView {
+extension StackableViewItem {
     
-    public func aligned(_ alignment: Alignment) -> AlignmentView {
-        return AlignmentView(self, alignment: alignment)
+    mutating func aligned(_ alignment: StackableAlignment) -> StackableViewItem {
+        self.alignment = alignment
+        return self
     }
     
-    public func inset(by margins: UIEdgeInsets) -> AlignmentView {
-        return AlignmentView(self, alignment: [], inset: margins)
+    mutating func inset(by margins: UIEdgeInsets) -> StackableViewItem {
+        self.inset = margins
+        return self
     }
     
 }
 
-public struct Alignment: OptionSet {
+extension StackableViewItem: StackableView {
+    
+    func makeStackableView(for stackView: UIStackView) -> UIView {
+        let view = makeView(stackView)
+        return AlignmentView(view, alignment: alignment, inset: inset)
+    }
+
+}
+
+public struct StackableAlignment: OptionSet {
     public let rawValue: Int
-    public static let leading          = Alignment(rawValue: 1 << 0)
-    public static let left             = Alignment(rawValue: 1 << 1)
-    public static let centerX          = Alignment(rawValue: 1 << 2)
-    public static let right            = Alignment(rawValue: 1 << 3)
-    public static let trailing         = Alignment(rawValue: 1 << 4)
-    public static let fillHorizontal   = Alignment(rawValue: 1 << 5)
-    public static let flexHorizontal   = Alignment(rawValue: 1 << 6)
+    public static let leading          = StackableAlignment(rawValue: 1 << 0)
+    public static let left             = StackableAlignment(rawValue: 1 << 1)
+    public static let centerX          = StackableAlignment(rawValue: 1 << 2)
+    public static let right            = StackableAlignment(rawValue: 1 << 3)
+    public static let trailing         = StackableAlignment(rawValue: 1 << 4)
+    public static let fillHorizontal   = StackableAlignment(rawValue: 1 << 5)
+    public static let flexHorizontal   = StackableAlignment(rawValue: 1 << 6)
 
-    public static let top              = Alignment(rawValue: 1 << 7)
-    public static let centerY          = Alignment(rawValue: 1 << 8)
-    public static let bottom           = Alignment(rawValue: 1 << 9)
-    public static let fillVertical     = Alignment(rawValue: 1 << 10)
-    public static let flexVertical     = Alignment(rawValue: 1 << 11)
+    public static let top              = StackableAlignment(rawValue: 1 << 7)
+    public static let centerY          = StackableAlignment(rawValue: 1 << 8)
+    public static let bottom           = StackableAlignment(rawValue: 1 << 9)
+    public static let fillVertical     = StackableAlignment(rawValue: 1 << 10)
+    public static let flexVertical     = StackableAlignment(rawValue: 1 << 11)
 
-    public static let center: Alignment = [.centerX, .centerY]
+    public static let center: StackableAlignment = [.centerX, .centerY]
 
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
 
-    fileprivate static let Horizontal: Alignment = [.leading, .left, .centerX, .right, .trailing, .fillHorizontal, .flexHorizontal]
-    fileprivate static let Vertical: Alignment = [.top, .centerY, .bottom, .fillVertical, .flexVertical]
+    fileprivate static let Horizontal: StackableAlignment = [.leading, .left, .centerX, .right, .trailing, .fillHorizontal, .flexHorizontal]
+    fileprivate static let Vertical: StackableAlignment = [.top, .centerY, .bottom, .fillVertical, .flexVertical]
 }
 
 /// View wrapper that lets you specify internal alignment.
 public final class AlignmentView: UIView {
 
-    required init(_ wrapped: UIView, alignment: Alignment, inset: UIEdgeInsets = .zero) {
+    required init(_ wrapped: UIView, alignment: StackableAlignment, inset: UIEdgeInsets = .zero) {
         super.init(frame: .zero)
         layoutMargins = inset
 
         addSubview(wrapped)
 
         var alignment = alignment
-        if alignment.isDisjoint(with: Alignment.Horizontal) {
+        if alignment.isDisjoint(with: StackableAlignment.Horizontal) {
             alignment.formUnion(.fillHorizontal)
         }
-        if alignment.isDisjoint(with: Alignment.Vertical) {
+        if alignment.isDisjoint(with: StackableAlignment.Vertical) {
             alignment.formUnion(.fillVertical)
         }
 
