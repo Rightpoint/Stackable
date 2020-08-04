@@ -13,28 +13,27 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let label = UILabel()
-        label.text = "hello"
         
         let stack = UIStackView()
         stack.axis = .vertical
-        
-        stack.stackable.add([
-            label
-                .aligned(.centerX),
-            UIStackView.stackable.hairline,
-            ...40,
-            "World",
-        ])
-        
         view.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        stack.stackable.add([
+            "Hello"
+                .aligned(.right)
+                .inset(by: .init(top: 20, left: 0, bottom: 0, right: 10)),
+            UIStackView.stackable.hairline,
+            20,
+            "World",
+            UIStackView.stackable.flexibleSpace,
+        ])
+        
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             stack.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             stack.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            stack.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor)
+            stack.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
     }
 
