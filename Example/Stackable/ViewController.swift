@@ -19,16 +19,25 @@ class ViewController: UIViewController {
         view.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
         
+        let hello = UILabel()
+        hello.text = "Hello"
+        
+        let world = UILabel()
+        world.text = "World"
+        
         stack.stackable.add([
-            "Hello"
+            hello
                 .aligned(.right)
                 .inset(by: .init(top: 0, left: 0, bottom: 0, right: 20)),
-            UIStackView.stackable.hairline
-                .color(UIColor.red)
-                .thickness(5.0)
-                .outset(to: view),
-            20...,
-            "World",
+            20,
+            world,
+            UIStackView.stackable.flexibleSpace,
+        ])
+        
+        stack.stackable.add([
+            UIStackView.stackable.hairlines(after: [hello, world])
+                .outset(to: view)
+                .color(.red),
         ])
         
         NSLayoutConstraint.activate([

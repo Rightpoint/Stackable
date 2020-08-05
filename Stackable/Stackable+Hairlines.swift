@@ -85,6 +85,26 @@ public extension StackableHairline {
     
 }
 
+public extension Array where Element == StackableHairline {
+    
+    func inset(by margins: UIEdgeInsets) -> Self {
+        return map { $0.inset(by: margins) }
+    }
+    
+    func outset(to ancestor: UIView) -> Self {
+        return map { $0.outset(to: ancestor) }
+    }
+    
+    func thickness(_ thickness: CGFloat) -> Self {
+        return map { $0.thickness(thickness) }
+    }
+    
+    func color(_ color: UIColor) -> Self {
+        return map { $0.color(color) }
+    }
+    
+}
+
 final class StackableHairlineView: UIView {
     
     init(stackAxis axis: NSLayoutConstraint.Axis, thickness: CGFloat, color: UIColor, inset: UIEdgeInsets) {

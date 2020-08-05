@@ -18,7 +18,7 @@ extension StackableExtension where ExtendedType == UIStackView {
     }
 
     public func insertArrangedSubview(_ view: UIView, aboveArrangedSubview other: UIView) {
-        if let idx = type.arrangedSubviews.firstIndex(of: other) {
+        if let idx = type.arrangedSubviews.firstIndex(where: { other.isDescendant(of: $0) }) {
             type.insertArrangedSubview(view, at: idx)
         }
         else {
@@ -27,7 +27,7 @@ extension StackableExtension where ExtendedType == UIStackView {
     }
 
     public func insertArrangedSubview(_ view: UIView, belowArrangedSubview other: UIView) {
-        if let idx = type.arrangedSubviews.firstIndex(of: other)?.advanced(by: 1) {
+        if let idx = type.arrangedSubviews.firstIndex(where: { other.isDescendant(of: $0) })?.advanced(by: 1) {
             type.insertArrangedSubview(view, at: idx)
         }
         else {
