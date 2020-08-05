@@ -23,7 +23,10 @@ class ViewController: UIViewController {
             "Hello"
                 .aligned(.right)
                 .inset(by: .init(top: 0, left: 0, bottom: 0, right: 20)),
-            UIStackView.stackable.hairline,
+            UIStackView.stackable.hairline
+                .color(UIColor.red)
+                .thickness(5.0)
+                .outset(to: view),
             20...,
             "World",
         ])
