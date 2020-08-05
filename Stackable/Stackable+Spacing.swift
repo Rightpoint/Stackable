@@ -65,6 +65,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .constantSpace(space):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
@@ -72,6 +73,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .spaceBefore(view, space):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
@@ -80,6 +82,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .spaceAfter(view, space):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
@@ -88,6 +91,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .spaceAfterGroup(views, space):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
@@ -98,6 +102,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .flexibleSpace(.atLeast(space)):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.defaultLow, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(greaterThanOrEqualToConstant: space)
             ])
@@ -105,6 +110,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .flexibleSpace(.range(range)):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.defaultLow, for: stackView.axis)
             let anchor = spacer.dimension(along: stackView.axis)
             NSLayoutConstraint.activate([
                 anchor.constraint(lessThanOrEqualToConstant: range.upperBound),
@@ -114,6 +120,7 @@ extension StackableSpaceItem: Stackable {
 
         case let .flexibleSpace(.atMost(space)):
             let spacer = UIView()
+            spacer.setContentHuggingPriority(.defaultLow, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(lessThanOrEqualToConstant: space)
             ])

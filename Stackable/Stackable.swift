@@ -67,6 +67,7 @@ extension UIViewController: StackableView {
 extension NSAttributedString: StackableView {
     public func makeStackableView(for stackView: UIStackView) -> UIView {
         let label = UILabel()
+        label.setContentHuggingPriority(.required, for: stackView.axis)
         label.attributedText = self
         label.numberOfLines = 0
         return label
@@ -179,6 +180,14 @@ extension Array: Stackable where Element: Stackable {
 
 }
 
+extension Optional: Stackable where Wrapped: Stackable {
+    
+    public func configure(stackView: UIStackView) {
+        map { $0.configure(stackView: stackView) }
+    }
+    
+}
+
 // MARK: - Support
 internal extension UIView {
 
@@ -190,4 +199,18 @@ internal extension UIView {
         }
     }
 
+}
+
+internal extension NSLayoutConstraint.Axis {
+    
+    var opposite: NSLayoutConstraint.Axis {
+        switch self {
+        case .horizontal:
+            return .vertical
+        case .vertical:
+            return .horizontal
+        @unknown default: fatalError()
+        }
+    }
+    
 }
