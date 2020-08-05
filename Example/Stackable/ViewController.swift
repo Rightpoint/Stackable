@@ -13,11 +13,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         let stack = UIStackView()
         stack.axis = .vertical
         view.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        stack.stackable.hairlineProvider = { _ in
+            let custom = UIView()
+            custom.heightAnchor.constraint(equalToConstant: 10.0).isActive = true
+            custom.backgroundColor = .cyan
+            return custom
+        }
         
         let hello = UILabel()
         hello.text = "Hello"
@@ -28,8 +35,11 @@ class ViewController: UIViewController {
         stack.stackable.add([
             [hello, world]
                 .aligned(.right),
-            "Jonas",
+            UIStackView.stackable.hairline
+                .outset(to: view),
             UIStackView.stackable.flexibleSpace,
+            "Jonas",
+            20,
         ])
         
         NSLayoutConstraint.activate([

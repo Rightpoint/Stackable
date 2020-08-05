@@ -19,8 +19,8 @@ public struct StackableHairline {
     
     internal let type: HairlineType
     
-    internal var thickness: CGFloat = 1.0
-    internal var color: UIColor = .lightGray
+    internal var thicknessOverride: CGFloat?
+    internal var colorOverride: UIColor?
     
     internal var inset: UIEdgeInsets = .zero
     internal var outsetAncestor: UIView?
@@ -58,7 +58,7 @@ public extension StackableExtension where ExtendedType == UIStackView {
 }
 
 public extension StackableHairline {
-        
+    
     func inset(by margins: UIEdgeInsets) -> StackableHairline {
         var hairline = self
         hairline.inset = margins
@@ -73,13 +73,13 @@ public extension StackableHairline {
     
     func thickness(_ thickness: CGFloat) -> StackableHairline {
         var hairline = self
-        hairline.thickness = thickness
+        hairline.thicknessOverride = thickness
         return hairline
     }
     
     func color(_ color: UIColor) -> StackableHairline {
         var hairline = self
-        hairline.color = color
+        hairline.colorOverride = color
         return hairline
     }
     
@@ -107,9 +107,9 @@ public extension Array where Element == StackableHairline {
 
 final class StackableHairlineView: UIView {
     
-    init(stackAxis axis: NSLayoutConstraint.Axis, thickness: CGFloat, color: UIColor, inset: UIEdgeInsets) {
+    init(stackAxis axis: NSLayoutConstraint.Axis, thickness: CGFloat, color: UIColor) {
         super.init(frame: .zero)
-               
+        
         NSLayoutConstraint.activate([
             self.dimension(along: axis).constraint(equalToConstant: thickness),
         ])
@@ -118,26 +118,16 @@ final class StackableHairlineView: UIView {
         setContentCompressionResistancePriority(.required, for: axis)
         
         backgroundColor = color
-        layoutMargins = inset
     }
     
-    override var alignmentRectInsets: UIEdgeInsets {
-        return UIEdgeInsets(
-            top: -layoutMargins.top,
-            left: -layoutMargins.left,
-            bottom: -layoutMargins.bottom,
-            right: -layoutMargins.right
-        )
-    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 
 extension StackableHairline: Stackable {
-
+    
     public func configure(stackView: UIStackView) {
         if let view = hairlineBeforeView {
             let hairline = makeHairline(stackView: stackView)
@@ -159,18 +149,25 @@ extension StackableHairline: Stackable {
         }
     }
     
-    private func makeHairline(stackView: UIStackView) -> StackableHairlineView {
-        let hairline = StackableHairlineView(
-            stackAxis: stackView.axis,
-            thickness: thickness,
-            color: color,
-            inset: inset
+    private func makeHairline(stackView: UIStackView) -> UIView {
+        let hairline = stackView.stackable.hairlineProvider?(stackView)
+            ?? UIStackView.stackable.hairlineProvider?(stackView)
+            ?? StackableHairlineView(
+                stackAxis: stackView.axis,
+                thickness: thicknessOverride
+                    ?? stackView.stackable.hairlineThickness
+                    ?? UIStackView.stackable.hairlineThickness
+                    ?? UIStackView.Default.hairlineThickness,
+                color: colorOverride
+                    ?? stackView.stackable.hairlineColor
+                    ?? UIStackView.stackable.hairlineColor
+                    ?? UIStackView.Default.hairlineColor
         )
         
         hairline.bindVisible(toAllVisible: allViews)
         return hairline
     }
-  
+    
     private var allViews: [UIView] {
         switch type {
         case .after(let view): return [view].compactMap { $0 }
@@ -179,7 +176,7 @@ extension StackableHairline: Stackable {
         case .around(let view): return [view].compactMap { $0 }
         }
     }
-
+    
     private var hairlineAfterView: UIView? {
         switch type {
         case .after(let view): return view
@@ -188,7 +185,7 @@ extension StackableHairline: Stackable {
         case .around(let view): return view
         }
     }
-
+    
     private var hairlineBeforeView: UIView? {
         switch type {
         case .after: return nil
@@ -201,58 +198,111 @@ extension StackableHairline: Stackable {
 
 extension StackableHairline {
     
-      private func outsetHairlineIfNecessary(hairline: StackableHairlineView, stackView: UIStackView) -> StackableView {
-          guard outsetAncestor != nil else { return hairline }
-          switch stackView.axis {
-          case .horizontal:
-              let wrapper = UIView()
-              wrapper.translatesAutoresizingMaskIntoConstraints = false
-              hairline.translatesAutoresizingMaskIntoConstraints = false
-              wrapper.addSubview(hairline)
-              NSLayoutConstraint.activate([
-                  hairline.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
-                  hairline.trailingAnchor.constraint(equalTo: wrapper.trailingAnchor),
-              ])
-              return wrapper
-              
-          case .vertical:
-              let wrapper = UIView()
-              wrapper.translatesAutoresizingMaskIntoConstraints = false
-              hairline.translatesAutoresizingMaskIntoConstraints = false
-              wrapper.addSubview(hairline)
-              NSLayoutConstraint.activate([
-                  hairline.topAnchor.constraint(equalTo: wrapper.topAnchor),
-                  hairline.bottomAnchor.constraint(equalTo: wrapper.bottomAnchor),
-              ])
-              return wrapper
-              
-          @unknown default:
-              // We've hit some new cool stackview axis that we don't support yet
-              debugPrint("Unsupported stackView axis: \(stackView.axis)")
-              return hairline
-          }
-      }
-      
-      private func applyOutsetConstraint(hairline: StackableHairlineView, stackView: UIStackView) {
-          if let ancestor = outsetAncestor {
-              switch stackView.axis {
-              case .horizontal:
-                  NSLayoutConstraint.activate([
-                      hairline.topAnchor.constraint(equalTo: ancestor.topAnchor),
-                      hairline.bottomAnchor.constraint(equalTo: ancestor.bottomAnchor),
-                  ])
-                  
-              case .vertical:
-                  NSLayoutConstraint.activate([
-                      hairline.leadingAnchor.constraint(equalTo: ancestor.leadingAnchor),
-                      hairline.trailingAnchor.constraint(equalTo: ancestor.trailingAnchor),
-                  ])
-                  
-              @unknown default:
-                  // We've hit some new cool stackview axis that we don't support yet
-                  debugPrint("Unsupported stackView axis: \(stackView.axis)")
-              }
-          }
-      }
+    private func outsetHairlineIfNecessary(hairline: UIView, stackView: UIStackView) -> StackableView {
+        if outsetAncestor == nil, inset == .zero { return hairline }
+        
+        switch stackView.axis {
+        case .horizontal:
+            let wrapper = UIView()
+            wrapper.translatesAutoresizingMaskIntoConstraints = false
+            hairline.translatesAutoresizingMaskIntoConstraints = false
+            wrapper.addSubview(hairline)
+            NSLayoutConstraint.activate([
+                hairline.leadingAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.leadingAnchor),
+                hairline.trailingAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.trailingAnchor),
+            ])
+            if outsetAncestor == nil {
+                NSLayoutConstraint.activate([
+                    hairline.topAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.topAnchor),
+                    hairline.bottomAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.bottomAnchor),
+                ])
+            }
+            wrapper.layoutMargins = inset
+            return wrapper
+            
+        case .vertical:
+            let wrapper = UIView()
+            wrapper.translatesAutoresizingMaskIntoConstraints = false
+            hairline.translatesAutoresizingMaskIntoConstraints = false
+            wrapper.addSubview(hairline)
+            NSLayoutConstraint.activate([
+                hairline.topAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.topAnchor),
+                hairline.bottomAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.bottomAnchor),
+            ])
+            if outsetAncestor == nil {
+                NSLayoutConstraint.activate([
+                    hairline.leftAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.leftAnchor),
+                    hairline.rightAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.rightAnchor),
+                ])
+            }
+            wrapper.layoutMargins = inset
+            return wrapper
+            
+        @unknown default:
+            // We've hit some new cool stackview axis that we don't support yet
+            debugPrint("Unsupported stackView axis: \(stackView.axis)")
+            return hairline
+        }
+    }
+    
+    private func applyOutsetConstraint(hairline: UIView, stackView: UIStackView) {
+        if let ancestor = outsetAncestor {
+            switch stackView.axis {
+            case .horizontal:
+                NSLayoutConstraint.activate([
+                    hairline.topAnchor.constraint(equalTo: ancestor.topAnchor),
+                    hairline.bottomAnchor.constraint(equalTo: ancestor.bottomAnchor),
+                ])
+                
+            case .vertical:
+                NSLayoutConstraint.activate([
+                    hairline.leadingAnchor.constraint(equalTo: ancestor.leadingAnchor),
+                    hairline.trailingAnchor.constraint(equalTo: ancestor.trailingAnchor),
+                ])
+                
+            @unknown default:
+                // We've hit some new cool stackview axis that we don't support yet
+                debugPrint("Unsupported stackView axis: \(stackView.axis)")
+            }
+        }
+    }
+    
+}
+
+public typealias StackableHairlineProvider = (UIStackView) -> UIView
+
+public extension UIStackView {
+    fileprivate struct AssociatedKeys {
+        static var hairlineColor = "hairlineColor"
+        static var hairlineThickness = "hairlineThickness"
+        static var hairlineProvider = "hairlineProvider"
+    }
+    
+    fileprivate struct Default {
+        static let hairlineColor = UIColor.lightGray
+        static let hairlineThickness = CGFloat(1.0)
+    }
+}
+
+public extension StackableExtension where ExtendedType == UIStackView {
+    
+    var hairlineColor: UIColor? {
+        get { return objc_getAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineColor) as? UIColor }
+        set { objc_setAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    var hairlineThickness: CGFloat? {
+        get { return objc_getAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineThickness) as? CGFloat }
+        set { objc_setAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineThickness, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    var hairlineProvider: StackableHairlineProvider? {
+        get { return objc_getAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineProvider) as? StackableHairlineProvider }
+        set { objc_setAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineProvider, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    static var hairlineColor: UIColor?
+    static var hairlineThickness: CGFloat?
+    static var hairlineProvider: StackableHairlineProvider?
     
 }

@@ -8,15 +8,15 @@
 import Foundation
 
 /// Type that acts as a generic extension point for all `StackableExtended` types.
-public struct StackableExtension<ExtendedType> {
+public class StackableExtension<ExtendedType> {
     /// Stores the type or meta-type of any extended type.
-    public private(set) var type: ExtendedType
+    public private(set) var base: ExtendedType
 
     /// Create an instance from the provided value.
     ///
-    /// - Parameter type: Instance being extended.
-    public init(_ type: ExtendedType) {
-        self.type = type
+    /// - Parameter base: Instance being extended.
+    public init(_ base: ExtendedType) {
+        self.base = base
     }
 }
 

@@ -46,7 +46,7 @@ extension StackableExtension where ExtendedType == UIStackView {
     }
 
     public func add(_ stackables: [Stackable]) {
-        stackables.forEach { $0.configure(stackView: type) }
+        stackables.forEach { $0.configure(stackView: base) }
     }
 
 }
