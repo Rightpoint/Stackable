@@ -7,22 +7,22 @@
 
 import Foundation
 
-struct StackableViewItem {
-    let makeView: (UIStackView) -> UIView
-    var alignment: StackableAlignment = []
-    var inset: UIEdgeInsets = .zero
+public struct StackableViewItem {
+    internal let makeView: (UIStackView) -> UIView
+    internal var alignment: StackableAlignment = []
+    internal var inset: UIEdgeInsets = .zero
 }
 
 public extension StackableView {
     
-    func aligned(_ alignment: StackableAlignment) -> StackableView {
+    func aligned(_ alignment: StackableAlignment) -> StackableViewItem {
         return StackableViewItem(
             makeView: makeStackableView(for:), //TODO: retain cycle?
             alignment: alignment
         )
     }
     
-    func inset(by margins: UIEdgeInsets) -> StackableView {
+    func inset(by margins: UIEdgeInsets) -> StackableViewItem {
         return StackableViewItem(
             makeView: makeStackableView(for:), //TODO: retain cycle?
             inset: margins
@@ -31,23 +31,21 @@ public extension StackableView {
     
 }
 
-extension StackableViewItem {
+public extension Array where Element: StackableView {
     
-    mutating func aligned(_ alignment: StackableAlignment) -> StackableViewItem {
-        self.alignment = alignment
-        return self
+    func aligned(_ alignment: StackableAlignment) -> [StackableViewItem] {
+        return map { $0.aligned(alignment) }
     }
     
-    mutating func inset(by margins: UIEdgeInsets) -> StackableViewItem {
-        self.inset = margins
-        return self
+    func inset(by margins: UIEdgeInsets) -> [StackableViewItem] {
+        return map { $0.inset(by: margins) }
     }
-    
+ 
 }
 
 extension StackableViewItem: StackableView {
     
-    func makeStackableView(for stackView: UIStackView) -> UIView {
+    public func makeStackableView(for stackView: UIStackView) -> UIView {
         let view = makeView(stackView)
         return AlignmentView(view, alignment: alignment, inset: inset)
     }

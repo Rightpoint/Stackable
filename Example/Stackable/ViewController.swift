@@ -26,18 +26,10 @@ class ViewController: UIViewController {
         world.text = "World"
         
         stack.stackable.add([
-            hello
-                .aligned(.right)
-                .inset(by: .init(top: 0, left: 0, bottom: 0, right: 20)),
-            20,
-            world,
+            [hello, world]
+                .aligned(.right),
+            "Jonas",
             UIStackView.stackable.flexibleSpace,
-        ])
-        
-        stack.stackable.add([
-            UIStackView.stackable.hairlines(after: [hello, world])
-                .outset(to: view)
-                .color(.red),
         ])
         
         NSLayoutConstraint.activate([

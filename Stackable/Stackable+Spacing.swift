@@ -75,11 +75,16 @@ extension StackableSpaceItem: Stackable {
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
-            stackView.addArrangedSubview(spacer)
+            stackView.stackable.insertArrangedSubview(spacer, beforeArrangedSubview: view)
             spacer.bindVisible(to: view)
 
         case let .spaceAfter(view, space):
-            stackView.setCustomSpacing(space, after: view)
+            let spacer = UIView()
+            NSLayoutConstraint.activate([
+                spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
+            ])
+            stackView.stackable.insertArrangedSubview(spacer, afterArrangedSubview: view)
+            spacer.bindVisible(to: view)
 
         case let .spaceAfterGroup(views, space):
             let spacer = UIView()
@@ -87,7 +92,7 @@ extension StackableSpaceItem: Stackable {
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
             if let view = views.last {
-                stackView.stackable.insertArrangedSubview(spacer, belowArrangedSubview: view)
+                stackView.stackable.insertArrangedSubview(spacer, afterArrangedSubview: view)
             }
             spacer.bindVisible(toAnyVisible: views)
 

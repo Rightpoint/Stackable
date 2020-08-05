@@ -142,13 +142,13 @@ extension StackableHairline: Stackable {
         if let view = hairlineBeforeView {
             let hairline = makeHairline(stackView: stackView)
             let outsetHairline = outsetHairlineIfNecessary(hairline: hairline, stackView: stackView).makeStackableView(for: stackView)
-            stackView.stackable.insertArrangedSubview(outsetHairline, aboveArrangedSubview: view)
+            stackView.stackable.insertArrangedSubview(outsetHairline, beforeArrangedSubview: view)
             applyOutsetConstraint(hairline: hairline, stackView: stackView)
         }
         if let view = hairlineAfterView {
             let hairline = makeHairline(stackView: stackView)
             let outsetHairline = outsetHairlineIfNecessary(hairline: hairline, stackView: stackView).makeStackableView(for: stackView)
-            stackView.stackable.insertArrangedSubview(outsetHairline, belowArrangedSubview: view)
+            stackView.stackable.insertArrangedSubview(outsetHairline, afterArrangedSubview: view)
             applyOutsetConstraint(hairline: hairline, stackView: stackView)
         }
         if allViews.isEmpty {
