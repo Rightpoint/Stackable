@@ -198,66 +198,44 @@ extension StackableHairline: Stackable {
 
 extension StackableHairline {
     
-    private func outsetHairlineIfNecessary(hairline: UIView, stackView: UIStackView) -> StackableView {
-        if outsetAncestor == nil, inset == .zero { return hairline }
+    private func outsetIfNecessary(view: UIView, stackView: UIStackView) -> StackableView {
+        if outsetAncestor == nil, inset == .zero { return view }
         
         switch stackView.axis {
         case .horizontal:
-            let wrapper = UIView()
-            wrapper.translatesAutoresizingMaskIntoConstraints = false
-            hairline.translatesAutoresizingMaskIntoConstraints = false
-            wrapper.addSubview(hairline)
-            NSLayoutConstraint.activate([
-                hairline.leadingAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.leadingAnchor),
-                hairline.trailingAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.trailingAnchor),
-            ])
-            if outsetAncestor == nil {
-                NSLayoutConstraint.activate([
-                    hairline.topAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.topAnchor),
-                    hairline.bottomAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.bottomAnchor),
-                ])
+            var wrapper = view.inset(by: inset)
+            if (outsetAncestor != nil) {
+                wrapper = wrapper.aligned(.flexVertical)
             }
-            wrapper.layoutMargins = inset
             return wrapper
             
         case .vertical:
-            let wrapper = UIView()
-            wrapper.translatesAutoresizingMaskIntoConstraints = false
-            hairline.translatesAutoresizingMaskIntoConstraints = false
-            wrapper.addSubview(hairline)
-            NSLayoutConstraint.activate([
-                hairline.topAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.topAnchor),
-                hairline.bottomAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.bottomAnchor),
-            ])
-            if outsetAncestor == nil {
-                NSLayoutConstraint.activate([
-                    hairline.leftAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.leftAnchor),
-                    hairline.rightAnchor.constraint(equalTo: wrapper.layoutMarginsGuide.rightAnchor),
-                ])
+            var wrapper = view.inset(by: inset)
+            if (outsetAncestor != nil) {
+                wrapper = wrapper.aligned(.flexHorizontal)
             }
-            wrapper.layoutMargins = inset
             return wrapper
             
         @unknown default:
             // We've hit some new cool stackview axis that we don't support yet
             debugPrint("Unsupported stackView axis: \(stackView.axis)")
-            return hairline
+            return view
         }
     }
     
-    private func applyOutsetConstraint(hairline: UIView, stackView: UIStackView) {
+    private func applyOutsetConstraint(view: UIView, stackView: UIStackView) {
         if let ancestor = outsetAncestor {
             switch stackView.axis {
             case .horizontal:
                 NSLayoutConstraint.activate([
-                    hairline.topAnchor.constraint(equalTo: ancestor.topAnchor),
-                    hairline.bottomAnchor.constraint(equalTo: ancestor.bottomAnchor),
+                    view.topAnchor.constraint(equalTo: ancestor.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: ancestor.bottomAnchor),
                 ])
                 
             case .vertical:
                 NSLayoutConstraint.activate([
-                    hairline.leadingAnchor.constraint(equalTo: ancestor.leadingAnchor),
-                    hairline.trailingAnchor.constraint(equalTo: ancestor.trailingAnchor),
+                    view.leadingAnchor.constraint(equalTo: ancestor.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: ancestor.trailingAnchor),
                 ])
                 
             @unknown default:
