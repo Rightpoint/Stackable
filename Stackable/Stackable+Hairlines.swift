@@ -131,21 +131,21 @@ extension StackableHairline: Stackable {
     public func configure(stackView: UIStackView) {
         if let view = hairlineBeforeView {
             let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetIfNecessary(view: hairline, stackView: stackView).makeStackableView(for: stackView)
+            let outsetHairline = outsetIfNecessary(view: hairline, outsetAncestor: outsetAncestor, inset: inset, stackView: stackView).makeStackableView(for: stackView)
             stackView.stackable.insertArrangedSubview(outsetHairline, beforeArrangedSubview: view)
-            applyOutsetConstraint(view: hairline, stackView: stackView)
+            applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
         }
         if let view = hairlineAfterView {
             let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetIfNecessary(view: hairline, stackView: stackView).makeStackableView(for: stackView)
+            let outsetHairline = outsetIfNecessary(view: hairline, outsetAncestor: outsetAncestor, inset: inset, stackView: stackView).makeStackableView(for: stackView)
             stackView.stackable.insertArrangedSubview(outsetHairline, afterArrangedSubview: view)
-            applyOutsetConstraint(view: hairline, stackView: stackView)
+            applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
         }
         if allViews.isEmpty {
             let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetIfNecessary(view: hairline, stackView: stackView).makeStackableView(for: stackView)
+            let outsetHairline = outsetIfNecessary(view: hairline, outsetAncestor: outsetAncestor, inset: inset, stackView: stackView).makeStackableView(for: stackView)
             stackView.addArrangedSubview(outsetHairline)
-            applyOutsetConstraint(view: hairline, stackView: stackView)
+            applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
         }
     }
     
@@ -194,57 +194,6 @@ extension StackableHairline: Stackable {
         case .around(let view): return view
         }
     }
-}
-
-extension StackableHairline {
-    
-    private func outsetIfNecessary(view: UIView, stackView: UIStackView) -> StackableView {
-        if outsetAncestor == nil, inset == .zero { return view }
-        
-        switch stackView.axis {
-        case .horizontal:
-            var wrapper = view.inset(by: inset)
-            if (outsetAncestor != nil) {
-                wrapper = wrapper.aligned(.flexVertical)
-            }
-            return wrapper
-            
-        case .vertical:
-            var wrapper = view.inset(by: inset)
-            if (outsetAncestor != nil) {
-                wrapper = wrapper.aligned(.flexHorizontal)
-            }
-            return wrapper
-            
-        @unknown default:
-            // We've hit some new cool stackview axis that we don't support yet
-            debugPrint("Unsupported stackView axis: \(stackView.axis)")
-            return view
-        }
-    }
-    
-    private func applyOutsetConstraint(view: UIView, stackView: UIStackView) {
-        if let ancestor = outsetAncestor {
-            switch stackView.axis {
-            case .horizontal:
-                NSLayoutConstraint.activate([
-                    view.topAnchor.constraint(equalTo: ancestor.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: ancestor.bottomAnchor),
-                ])
-                
-            case .vertical:
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: ancestor.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: ancestor.trailingAnchor),
-                ])
-                
-            @unknown default:
-                // We've hit some new cool stackview axis that we don't support yet
-                debugPrint("Unsupported stackView axis: \(stackView.axis)")
-            }
-        }
-    }
-    
 }
 
 public typealias StackableHairlineProvider = (UIStackView) -> UIView
