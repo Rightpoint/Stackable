@@ -11,8 +11,12 @@ import Stackable
 
 class ExampleMenuViewController: UIViewController {
 
-    enum Example: String, CaseIterable {
+    enum ExampleCell: String, CaseIterable {
         case signIn = "Sign In"
+        case onboarding = "Onboarding"
+        case settings  = "Settings"
+        case contentList = "Content List"
+        case contentDetail = "Content Detail"
     }
     
     let contentView: ScrollingStackView = {
@@ -32,19 +36,18 @@ class ExampleMenuViewController: UIViewController {
         view.addSubview(contentView)
         contentView.pinToSuperview(view)
 
-        let cells = Example.allCases.map(cell(for:))
+        let cells = ExampleCell.allCases.map(cell(for:))
         contentView.stackView.stackable.add([
-            "Examples",
+            "Stackable Examples",
             20,
             cells,
             UIStackView.stackable.hairlines(around: cells)
-                .color(.red)
                 .outset(to: view),
             UIStackView.stackable.flexibleSpace,
         ])
     }
     
-    func cell(for example: Example) -> UIView {
+    func cell(for example: ExampleCell) -> UIView {
         let cell = MenuCell()
         cell.title = example.rawValue
         cell.onSelect = { [weak self] in
@@ -53,8 +56,17 @@ class ExampleMenuViewController: UIViewController {
         return cell
     }
     
-    func exampleSelected(example: Example) {
+    func exampleSelected(example: ExampleCell) {
         print("pressed \(example)")
+    }
+    
+    enum Constant  {
+        static let margins = UIEdgeInsets(
+            top: 20,
+            left: 20,
+            bottom: 20,
+            right: 20
+        )
     }
 
 }
@@ -75,6 +87,7 @@ class MenuCell: UIControl {
         
     init() {
         super.init(frame: .zero)
+        backgroundColor = .white
         layoutMargins = .init(top: 10, left: 0, bottom: 10, right: 0)
         
         let stack = UIStackView()

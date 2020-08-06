@@ -131,21 +131,21 @@ extension StackableHairline: Stackable {
     public func configure(stackView: UIStackView) {
         if let view = hairlineBeforeView {
             let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetHairlineIfNecessary(hairline: hairline, stackView: stackView).makeStackableView(for: stackView)
+            let outsetHairline = outsetIfNecessary(view: hairline, stackView: stackView).makeStackableView(for: stackView)
             stackView.stackable.insertArrangedSubview(outsetHairline, beforeArrangedSubview: view)
-            applyOutsetConstraint(hairline: hairline, stackView: stackView)
+            applyOutsetConstraint(view: hairline, stackView: stackView)
         }
         if let view = hairlineAfterView {
             let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetHairlineIfNecessary(hairline: hairline, stackView: stackView).makeStackableView(for: stackView)
+            let outsetHairline = outsetIfNecessary(view: hairline, stackView: stackView).makeStackableView(for: stackView)
             stackView.stackable.insertArrangedSubview(outsetHairline, afterArrangedSubview: view)
-            applyOutsetConstraint(hairline: hairline, stackView: stackView)
+            applyOutsetConstraint(view: hairline, stackView: stackView)
         }
         if allViews.isEmpty {
             let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetHairlineIfNecessary(hairline: hairline, stackView: stackView).makeStackableView(for: stackView)
+            let outsetHairline = outsetIfNecessary(view: hairline, stackView: stackView).makeStackableView(for: stackView)
             stackView.addArrangedSubview(outsetHairline)
-            applyOutsetConstraint(hairline: hairline, stackView: stackView)
+            applyOutsetConstraint(view: hairline, stackView: stackView)
         }
     }
     
