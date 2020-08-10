@@ -12,6 +12,7 @@ public struct StackableViewItem {
     internal var alignment: StackableAlignment = []
     internal var inset: UIEdgeInsets = .zero
     internal var outsetAncestor: UIView? = nil
+    internal var marginsAncestor: UIView? = nil
 }
 
 public extension StackableView {
@@ -37,6 +38,13 @@ public extension StackableView {
         )
     }
     
+    func margins(alignedWith ancestor: UIView) -> StackableViewItem {
+        return StackableViewItem(
+            makeView: makeStackableView(for:), //TODO: retain cycle?
+            marginsAncestor: ancestor
+        )
+    }
+
 }
 
 public extension StackableViewItem  {
@@ -59,6 +67,12 @@ public extension StackableViewItem  {
         return item
     }
     
+    func margins(alignedWith ancestor: UIView) -> Self {
+        var item = self
+        item.marginsAncestor = ancestor
+        return item
+    }
+
 }
 
 public extension Array where Element: StackableView {
@@ -73,6 +87,10 @@ public extension Array where Element: StackableView {
  
     func outset(to ancestor: UIView) -> [StackableViewItem] {
         return map  { $0.outset(to: ancestor) }
+    }
+    
+    func margins(alignedWith ancestor: UIView) -> [StackableViewItem] {
+        return map { $0.margins(alignedWith: ancestor) }
     }
     
 }
@@ -91,13 +109,22 @@ public extension Array where Element == StackableViewItem {
         return map  { $0.outset(to: ancestor) }
     }
     
+    func margins(alignedWith ancestor: UIView) -> [StackableViewItem] {
+        return map { $0.margins(alignedWith: ancestor) }
+    }
+    
 }
 
 extension StackableViewItem: StackableView {
     
     public func makeStackableView(for stackView: UIStackView) -> UIView {
         let view = makeView(stackView)
-        return AlignmentView(view, alignment: alignment, inset: inset)
+        if alignment.isEmpty && inset == .zero  {
+            return view
+        }
+        else  {
+            return AlignmentView(view, alignment: alignment, inset: inset)
+        }
     }
     
     public func configure(stackView: UIStackView) {
@@ -110,6 +137,7 @@ extension StackableViewItem: StackableView {
         ).makeStackableView(for: stackView)
         stackView.addArrangedSubview(wrapped)
         applyOutsetConstraint(view: source, outsetAncestor: outsetAncestor, stackView: stackView)
+        applyMarginsConstraint(view: source, marginsAncestor: marginsAncestor, stackView: stackView)
     }
 
 }
@@ -162,6 +190,40 @@ internal extension Stackable {
                 // We've hit some new cool stackview axis that we don't support yet
                 debugPrint("Unsupported stackView axis: \(stackView.axis)")
             }
+        }
+    }
+    
+    func applyMarginsConstraint(view: UIView, marginsAncestor: UIView?, stackView: UIStackView) {
+        if let ancestor = marginsAncestor {
+            if let alignment = view as? AlignmentView, let subview = alignment.subviews.first {
+                applyMarginsConstraint(view: subview, marginsAncestor: marginsAncestor, stackView: stackView)
+                return
+            }
+            
+            let observation = ancestor.observe(\.frame, options: [.initial, .new]) { _, _ in
+                let bounds = view.bounds
+                let ancestorBounds = view.convert(ancestor.bounds, to: view)
+                
+                switch stackView.axis {
+                case .horizontal:
+                    let top = (ancestorBounds.minY - bounds.minY) + ancestor.layoutMargins.top
+                    let bottom = (bounds.maxY - ancestorBounds.maxY) + ancestor.layoutMargins.bottom
+                    view.layoutMargins.top = top
+                    view.layoutMargins.bottom = bottom
+                    
+                case .vertical:
+                    let left = (ancestorBounds.minX - bounds.minX) + ancestor.layoutMargins.left
+                    let right = (bounds.maxX - ancestorBounds.maxX) + ancestor.layoutMargins.right
+                    view.layoutMargins.left = left
+                    view.layoutMargins.right = right
+                    
+                @unknown default:
+                    // We've hit some new cool stackview axis that we don't support yet
+                    debugPrint("Unsupported stackView axis: \(stackView.axis)")
+                    
+                }
+            }
+            observation.attach(to: view)
         }
     }
     

@@ -21,31 +21,40 @@ class ExampleMenuViewController: UIViewController {
     
     let contentView: ScrollingStackView = {
         let view = ScrollingStackView()
-        view.layoutMargins = .init(
-            top: 20,
-            left: 20,
-            bottom: 20,
-            right: 20
-        )
+        view.layoutMargins = Constant.margins
         return view
     }()
-
+    
+    lazy var cells: [UIView] = ExampleCell.allCases.map(cell(for:))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         view.addSubview(contentView)
         contentView.pinToSuperview(view)
-
-        let cells = ExampleCell.allCases.map(cell(for:))
-        contentView.stackView.stackable.add([
-            "Stackable Examples",
+        
+        contentView.backgroundColor = .groupTableViewBackground
+        let stack = contentView.stackView
+                
+        stack.stackable.add([
+            UIImage(asset: .example),
             20,
-            cells,
+            "Stackable Example"
+                .aligned(.centerX),
+            20,
+            cells
+                .outset(to: view)
+                .margins(alignedWith: contentView),
             UIStackView.stackable.hairlines(around: cells)
                 .outset(to: view),
-            UIStackView.stackable.flexibleSpace,
+            20...,
+            "Copyright Rightpoint",
         ])
     }
+        
+}
+
+extension ExampleMenuViewController  {
     
     func cell(for example: ExampleCell) -> UIView {
         let cell = MenuCell()
@@ -98,7 +107,7 @@ class MenuCell: UIControl {
         stack.stackable.add([
             label,
             UIStackView.stackable.flexibleSpace,
-            UIImage(named: "Chevron"),
+            UIImage(asset: .chevron)
         ])
         
         addTarget(self, action: #selector(didPress), for: .touchUpInside)
@@ -138,4 +147,17 @@ extension UIView {
         ])
     }
     
+}
+
+extension UIImage {
+    
+    enum Asset: String {
+        case chevron = "Chevron"
+        case example = "Example"
+    }
+    
+    convenience init(asset: Asset) {
+        self.init(named: asset.rawValue)!
+    }
+
 }
