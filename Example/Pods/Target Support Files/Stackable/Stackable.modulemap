@@ -1,0 +1,6 @@
+framework module Stackable {
+  umbrella header "Stackable-umbrella.h"
+
+  export *
+  module * { export * }
+}
