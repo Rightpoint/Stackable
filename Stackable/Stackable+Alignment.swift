@@ -137,7 +137,7 @@ extension StackableViewItem: StackableView {
         ).makeStackableView(for: stackView)
         stackView.addArrangedSubview(wrapped)
         applyOutsetConstraint(view: source, outsetAncestor: outsetAncestor, stackView: stackView)
-        applyMarginsConstraint(view: source, marginsAncestor: marginsAncestor, stackView: stackView)
+        applyMarginsObservation(view: source, marginsAncestor: marginsAncestor, stackView: stackView)
     }
 
 }
@@ -193,10 +193,10 @@ internal extension Stackable {
         }
     }
     
-    func applyMarginsConstraint(view: UIView, marginsAncestor: UIView?, stackView: UIStackView) {
+    func applyMarginsObservation(view: UIView, marginsAncestor: UIView?, stackView: UIStackView) {
         if let ancestor = marginsAncestor {
             if let alignment = view as? AlignmentView, let subview = alignment.subviews.first {
-                applyMarginsConstraint(view: subview, marginsAncestor: marginsAncestor, stackView: stackView)
+                applyMarginsObservation(view: subview, marginsAncestor: marginsAncestor, stackView: stackView)
                 return
             }
             
