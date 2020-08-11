@@ -7,6 +7,87 @@
 
 import Foundation
 
+internal protocol StackableSpace: Stackable {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType
+}
+
+extension StackableSpace {
+    public func configure(stackView: UIStackView) {
+        let type = spaceType(for: stackView)
+        let item = StackableSpaceItem(type: type)
+        item.configure(stackView: stackView)
+    }
+}
+
+extension CGFloat: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        return .smartSpace(self)
+    }
+}
+
+extension Int: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        return CGFloat(self).spaceType(for: stackView)
+    }
+}
+
+extension Float: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        CGFloat(self).spaceType(for: stackView)
+    }
+}
+
+extension ClosedRange: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        switch (lowerBound, upperBound) {
+        case let (lower, upper) as (CGFloat, CGFloat):
+            return .flexibleSpace(.range(lower...upper))
+        case let (lower, upper) as (Int, Int):
+            return .flexibleSpace(.range(CGFloat(lower)...CGFloat(upper)))
+        case let (lower, upper) as (Float, Float):
+            return .flexibleSpace(.range(CGFloat(lower)...CGFloat(upper)))
+        case let (lower, upper) as (Double, Double):
+            return .flexibleSpace(.range(CGFloat(lower)...CGFloat(upper)))
+        default:
+            preconditionFailure("unsupported range bound: \(Bound.self)")
+        }
+    }
+}
+
+extension PartialRangeFrom: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        switch lowerBound {
+        case let lower as CGFloat:
+            return .flexibleSpace(.atLeast(lower))
+        case let lower as Int:
+            return .flexibleSpace(.atLeast(CGFloat(lower)))
+        case let lower as Float:
+            return .flexibleSpace(.atLeast(CGFloat(lower)))
+        case let lower as Double:
+            return .flexibleSpace(.atLeast(CGFloat(lower)))
+        default:
+            preconditionFailure("unsupported range bound: \(Bound.self)")
+        }
+    }
+}
+
+extension PartialRangeThrough: StackableSpace {
+    func spaceType(for stackView: UIStackView) -> StackableSpaceItem.SpaceType {
+        switch upperBound {
+        case let upper as CGFloat:
+            return .flexibleSpace(.atMost(upper))
+        case let upper as Int:
+            return .flexibleSpace(.atMost(CGFloat(upper)))
+        case let upper as Float:
+            return .flexibleSpace(.atMost(CGFloat(upper)))
+        case let upper as Double:
+            return .flexibleSpace(.atMost(CGFloat(upper)))
+        default:
+            preconditionFailure("unsupported range bound: \(Bound.self)")
+        }
+    }
+}
+
 // MARK: - Stackable Spaces
 public struct StackableSpaceItem {
     internal let type: SpaceType
