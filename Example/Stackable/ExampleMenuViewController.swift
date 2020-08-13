@@ -34,9 +34,8 @@ class ExampleMenuViewController: UIViewController {
         contentView.pinToSuperview(view)
         
         contentView.backgroundColor = .groupTableViewBackground
-        let stack = contentView.stackView
                 
-        stack.stackable.add([
+        contentView.add([
             UIImage(asset: .example),
             20,
             "Stackable Example"
