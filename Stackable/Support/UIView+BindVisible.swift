@@ -8,9 +8,13 @@
 import Foundation
 
 // MARK: Bind Visible
+// Use this pattern to monitor `.isHidden` of some other view, and update `self.isHidden` to match.
 extension NSKeyValueObservation: Attachable {}
 internal extension UIView {
     
+    
+    /// Observe `.isHidden` of `view`, and update `self.isHidden` to match.
+    /// - Parameter view: The view to observe.
     func bindVisible(to view: UIView) {
         let isHiddenObservation = view.observe(\.isHidden, options: .initial, changeHandler: { [weak self] (view, _) in
             self?.isHidden = view.isHidden
@@ -18,6 +22,8 @@ internal extension UIView {
         isHiddenObservation.attach(to: self)
     }
     
+    /// Observe `.isHidden` of `views`, and update `self.isHidden` to `false` ONLY if all of `views` are visible.
+    /// - Parameter view: The view to observe.
     func bindVisible(toAllVisible views: [UIView]) {
         views.forEach { view in
             let isHiddenObservation = view.observe(\.isHidden, options: .initial, changeHandler: { [weak self] (_, _) in
@@ -27,6 +33,8 @@ internal extension UIView {
         }
     }
     
+    /// Observe `.isHidden` of `views`, and update `self.isHidden` to `false` if ANY of `views` are visible.
+    /// - Parameter view: The view to observe.
     func bindVisible(toAnyVisible views: [UIView]) {
         views.forEach { view in
             let isHiddenObservation = view.observe(\.isHidden, options: .initial, changeHandler: { [weak self] (_, _) in
