@@ -7,9 +7,12 @@
 
 import Foundation
 
-// MARK: - Support
 internal extension UIView {
 
+    /// Get the dimension anchor of a view along the axis of a `UIStackView`.
+    /// For example, fetches the `heightAnchor` for a `.vertical` axis
+    /// - Parameter axis: The `stackView.axis`
+    /// - Returns: An `NSLayoutDimension` for the size anchor along the axis of a stackView.
     func dimension(along axis: NSLayoutConstraint.Axis) -> NSLayoutDimension {
         switch axis {
         case .vertical: return heightAnchor
@@ -18,18 +21,4 @@ internal extension UIView {
         }
     }
 
-}
-
-internal extension NSLayoutConstraint.Axis {
-    
-    var opposite: NSLayoutConstraint.Axis {
-        switch self {
-        case .horizontal:
-            return .vertical
-        case .vertical:
-            return .horizontal
-        @unknown default: fatalError()
-        }
-    }
-    
 }

@@ -273,9 +273,15 @@ public extension Array where Element == StackableHairline {
     
 }
 
-/// The view representation that StackableHairlines are transformed into.
+/// A simple hairline view with a color and thickness.
 internal final class StackableHairlineView: UIView {
     
+    
+    /// Creates a hairline.
+    /// - Parameters:
+    ///   - axis: This should be the stackView.axis, thickness constraint is applied along this direction.
+    ///   - thickness: Applied as a constraint along the stackView.axis.
+    ///   - color: Applied as a background color of the view.
     init(stackAxis axis: NSLayoutConstraint.Axis, thickness: CGFloat, color: UIColor) {
         super.init(frame: .zero)
         
@@ -298,26 +304,47 @@ internal final class StackableHairlineView: UIView {
 extension StackableHairline: Stackable {
     
     public func configure(stackView: UIStackView) {
+        // Add hairline before specific view if necessary.
         if let view = hairlineBeforeView {
-            let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetIfNecessary(view: hairline, outsetAncestor: outsetAncestor, inset: inset, stackView: stackView).makeStackableView(for: stackView)
-            stackView.stackable.insertArrangedSubview(outsetHairline, beforeArrangedSubview: view)
-            applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
+            insertHairline(stackView: stackView) { stack, hairline in
+                stack.stackable.insertArrangedSubview(hairline, beforeArrangedSubview: view)
+            }
         }
+        // Add hairline after specific view if necessary. Note that the `.around` hairline type adds a hairline above and below a view, so this should NOT be an `else if`.
         if let view = hairlineAfterView {
-            let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetIfNecessary(view: hairline, outsetAncestor: outsetAncestor, inset: inset, stackView: stackView).makeStackableView(for: stackView)
-            stackView.stackable.insertArrangedSubview(outsetHairline, afterArrangedSubview: view)
-            applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
+            insertHairline(stackView: stackView) { stack, hairline in
+                stack.stackable.insertArrangedSubview(hairline, afterArrangedSubview: view)
+            }
         }
+        // For a simple hairline with no specific view provided, append hairline to arrangedSubviews.
         if case .next = type {
-            let hairline = makeHairline(stackView: stackView)
-            let outsetHairline = outsetIfNecessary(view: hairline, outsetAncestor: outsetAncestor, inset: inset, stackView: stackView).makeStackableView(for: stackView)
-            stackView.addArrangedSubview(outsetHairline)
-            applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
+            insertHairline(stackView: stackView) { stack, hairline in
+                stack.addArrangedSubview(hairline)
+            }
         }
     }
     
+    /// Constructs a hairline, applies any required transforms, inserts it into stack using the provided closure, and applies ancestor constraints if necessary.
+    /// - Parameters:
+    ///   - stackView: The stackView that the hairlines should be constructed for
+    ///   - insert: A clousure inserting the hairline `UIView` into the given `UIStackView`
+    private func insertHairline(stackView: UIStackView, insert: (UIStackView, UIView) -> Void) {
+         let hairline = makeHairline(stackView: stackView)
+         let outsetHairline = outsetIfNecessary(
+             view: hairline,
+             outsetAncestor: outsetAncestor,
+             inset: inset,
+             stackView: stackView)
+             .makeStackableView(for: stackView)
+         insert(stackView, outsetHairline)
+         applyOutsetConstraint(view: hairline, outsetAncestor: outsetAncestor, stackView: stackView)
+     }
+    
+    /// Constructs a single hairline for a given `UIStackView`.
+    /// `.hairlineProvider` will be used if provided from the `UIStackView` instance, then global config. If not provided, will use default `StackableHairlineView`
+    /// Superficial config like `.thickness` and `.color` are coalesced to prefer first local styling on the `StackableHairline`, then to `UIStackView` instance-based styling (`stackView.stackable.hairlineColor`), then to `UIStackView` global-based styling (`UIStackView.stackable.hairlineColor`), and finally to internal defaults.
+    /// - Parameter stackView: The `UIStackView` to make the hairline for
+    /// - Returns: A `StackableHairlineView`
     private func makeHairline(stackView: UIStackView) -> UIView {
         let hairline = stackView.stackable.hairlineProvider?(stackView)
             ?? UIStackView.stackable.hairlineProvider?(stackView)
@@ -333,10 +360,13 @@ extension StackableHairline: Stackable {
                     ?? UIStackView.Default.hairlineColor
         )
         
+        // Hairline is only visible if all associated views are visible. For example, a `.between` hairline should only be visible if both provided views are visible.
         hairline.bindVisible(toAllVisible: allViews)
         return hairline
     }
     
+    
+    /// Every view the `StackableHairline` is associated with and should monitor visibility for.
     private var allViews: [UIView] {
         switch type {
         case .next: return []
@@ -347,6 +377,7 @@ extension StackableHairline: Stackable {
         }
     }
     
+    /// The view the `StackableHairline` should be inserted after in the stack.
     private var hairlineAfterView: UIView? {
         switch type {
         case .next: return nil
@@ -358,6 +389,7 @@ extension StackableHairline: Stackable {
         }
     }
     
+    /// The view the `StackableHairline` should be inserted before in the stack.
     private var hairlineBeforeView: UIView? {
         switch type {
         case .next: return nil
@@ -369,6 +401,7 @@ extension StackableHairline: Stackable {
     }
 }
 
+/// A custom hairline provider  must vend some view to use as a hairline given the `UIStackView`
 public typealias StackableHairlineProvider = (UIStackView) -> UIView
 
 public extension UIStackView {
@@ -386,23 +419,31 @@ public extension UIStackView {
 
 public extension StackableExtension where ExtendedType == UIStackView {
     
+    /// Instance-based `UIStackView` color override. Ultimate styling will prefer hairline-instance config first, but will prefer this over `UIStackView` static config.
     var hairlineColor: UIColor? {
         get { return objc_getAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineColor) as? UIColor }
         set { objc_setAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
+    /// Instance-based `UIStackView` thickness override. Ultimate styling will prefer hairline-instance config first, but will prefer this over `UIStackView` static config.
     var hairlineThickness: CGFloat? {
         get { return objc_getAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineThickness) as? CGFloat }
         set { objc_setAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineThickness, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
+    /// Instance-based `UIStackView` hairlineProvider override. Will prefer this over `UIStackView` static config.
     var hairlineProvider: StackableHairlineProvider? {
         get { return objc_getAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineProvider) as? StackableHairlineProvider }
         set { objc_setAssociatedObject(base, &type(of: base).AssociatedKeys.hairlineProvider, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
+    /// Static `UIStackView` color override. Ultimate styling will prefer hairline-instance config first, then `UIStackView` instance config.
     static var hairlineColor: UIColor?
+    
+    /// Static `UIStackView` thickness override. Ultimate styling will prefer hairline-instance config first, then `UIStackView` instance config.
     static var hairlineThickness: CGFloat?
+    
+    /// Static `UIStackView` hairlineProvider override. Ultimate styling will prefer `UIStackView` instance config.
     static var hairlineProvider: StackableHairlineProvider?
     
 }
