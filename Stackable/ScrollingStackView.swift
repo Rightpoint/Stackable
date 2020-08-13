@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// A `UIStackView` in a `UIScrollView`, whose stackView height will prefer to be at least the size of the frame of the scrollview.
+/// If content grows beyond the frame, will allow for scrolling.
 open class ScrollingStackView: UIScrollView {
 
     open override var layoutMargins: UIEdgeInsets {
@@ -14,6 +16,7 @@ open class ScrollingStackView: UIScrollView {
         get { return contentView.layoutMargins }
     }
 
+    /// All subviews should be added to `stackView` directly.
     public let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -31,8 +34,9 @@ open class ScrollingStackView: UIScrollView {
         return super.touchesShouldCancel(in: view)
     }
 
+    /// A container used to enforce that the stack content stays at least the height of the frame.
     private let contentView = UIView()
-
+    
     public init() {
         super.init(frame: .zero)
 
@@ -61,9 +65,53 @@ open class ScrollingStackView: UIScrollView {
         ])
     }
     
-
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+}
+
+// MARK: - Stackable Convenience Accessors
+public extension ScrollingStackView {
+    
+    /**
+     Adds a `Stackable` item to the stackView.
+
+     - Parameters:
+        - stackable: Any object conforming to `Stackable`
+     
+     ```
+     let stackView = ScrollingStackView()
+     stackView.add("Hello World!")
+     stackView.add(20)
+     stackView.add(UIStackView.stackable.hairline)
+     stackView.add(UIStackView.stackable.flexibleSpace)
+     ```
+     */
+    func add(_ stackable: Stackable) {
+        stackView.stackable.add(stackable)
+    }
+    
+    /**
+     Adds `Stackable` items to the stackView.
+
+     - Parameters:
+        - stackables: An array of `Stackable` elements. Does not need to be homogenous.
+     
+     ```
+     let stackView = ScrollingStackView()
+     let cells: [UIView] = ...
+     stackView.add([
+        "Hello World!",
+        20,
+        UIStackView.stackable.hairline,
+        cells,
+        UIStackView.stackable.flexibleSpace,
+     ])
+     ```
+     */
+    func add(_ stackables: [Stackable]) {
+        stackView.stackable.add(stackables)
+    }
+    
 }

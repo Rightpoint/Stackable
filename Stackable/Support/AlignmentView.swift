@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Options to specify how a view adjusts its content when its size is different than its intrinsic value.
 public struct StackableAlignment: OptionSet {
     public let rawValue: Int
     public static let leading          = StackableAlignment(rawValue: 1 << 0)
