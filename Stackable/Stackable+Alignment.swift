@@ -58,7 +58,7 @@ public extension StackableView {
         }
         
         return StackableViewItem(
-            makeView: makeStackableView(for:), //TODO: retain cycle?
+            makeView: makeStackableView(for:),
             alignment: alignment
         )
     }
@@ -92,7 +92,7 @@ public extension StackableView {
        }
         
         return StackableViewItem(
-            makeView: makeStackableView(for:), //TODO: retain cycle?
+            makeView: makeStackableView(for:),
             inset: margins
         )
     }
@@ -122,7 +122,7 @@ public extension StackableView {
         }
         
         return StackableViewItem(
-            makeView: makeStackableView(for:), //TODO: retain cycle?
+            makeView: makeStackableView(for:),
             outsetAncestor: ancestor
         )
     }
@@ -152,7 +152,7 @@ public extension StackableView {
         }
         
         return StackableViewItem(
-            makeView: makeStackableView(for:), //TODO: retain cycle?
+            makeView: makeStackableView(for:),
             marginsAncestor: ancestor
         )
     }
