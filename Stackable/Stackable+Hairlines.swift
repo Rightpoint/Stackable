@@ -285,6 +285,8 @@ internal final class StackableHairlineView: UIView {
     init(stackAxis axis: NSLayoutConstraint.Axis, thickness: CGFloat, color: UIColor) {
         super.init(frame: .zero)
         
+        accessibilityIdentifier = UIStackView.stackable.axID.hairline
+        
         NSLayoutConstraint.activate([
             self.dimension(along: axis).constraint(equalToConstant: thickness),
         ])

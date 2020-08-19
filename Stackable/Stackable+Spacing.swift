@@ -200,7 +200,7 @@ extension PartialRangeThrough: StackableSpace {
 }
 
 extension StackableSpaceItem: Stackable {
-
+    
     public func configure(stackView: UIStackView) {
         switch type {
             
@@ -217,7 +217,7 @@ extension StackableSpaceItem: Stackable {
             StackableSpaceItem(type: newType).configure(stackView: stackView)
 
         case let .constantSpace(space):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
@@ -225,7 +225,7 @@ extension StackableSpaceItem: Stackable {
             stackView.addArrangedSubview(spacer)
 
         case let .spaceBefore(view, space):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
@@ -234,7 +234,7 @@ extension StackableSpaceItem: Stackable {
             spacer.bindVisible(to: view)
 
         case let .spaceAfter(view, space):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
@@ -243,7 +243,7 @@ extension StackableSpaceItem: Stackable {
             spacer.bindVisible(to: view)
 
         case let .spaceAfterGroup(views, space):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
@@ -254,7 +254,7 @@ extension StackableSpaceItem: Stackable {
             spacer.bindVisible(toAnyVisible: views)
 
         case let .flexibleSpace(.atLeast(space)):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.defaultLow, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(greaterThanOrEqualToConstant: space)
@@ -262,7 +262,7 @@ extension StackableSpaceItem: Stackable {
             stackView.addArrangedSubview(spacer)
 
         case let .flexibleSpace(.range(range)):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.defaultLow, for: stackView.axis)
             let anchor = spacer.dimension(along: stackView.axis)
             NSLayoutConstraint.activate([
@@ -272,7 +272,7 @@ extension StackableSpaceItem: Stackable {
             stackView.addArrangedSubview(spacer)
 
         case let .flexibleSpace(.atMost(space)):
-            let spacer = UIView()
+            let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.defaultLow, for: stackView.axis)
             NSLayoutConstraint.activate([
                 spacer.dimension(along: stackView.axis).constraint(lessThanOrEqualToConstant: space)
@@ -280,4 +280,18 @@ extension StackableSpaceItem: Stackable {
             stackView.addArrangedSubview(spacer)
         }
     }
+}
+
+/// A simple, transparent view, representing spacing.
+internal class StackableSpacer: UIView {
+    
+    init() {
+        super.init(frame: .zero)
+        accessibilityIdentifier = UIStackView.stackable.axID.space
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

@@ -11,6 +11,7 @@
 		00200ED024E1A28B00F0818F /* UIView+ExampleLayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200ECF24E1A28B00F0818F /* UIView+ExampleLayoutHelpers.swift */; };
 		00200ED324E1A2ED00F0818F /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200ED224E1A2ED00F0818F /* MenuCell.swift */; };
 		00392CE024EAF2FC001E2F99 /* MemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CDF24EAF2FC001E2F99 /* MemoryTests.swift */; };
+		00392CE524EC598A001E2F99 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CE424EC598A001E2F99 /* LogoView.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ExampleMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ExampleMenuViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		00200ECF24E1A28B00F0818F /* UIView+ExampleLayoutHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ExampleLayoutHelpers.swift"; sourceTree = "<group>"; };
 		00200ED224E1A2ED00F0818F /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		00392CDF24EAF2FC001E2F99 /* MemoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTests.swift; sourceTree = "<group>"; };
+		00392CE424EC598A001E2F99 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		0285B0ADF6F8DDE8F69E6BD5 /* Pods_Stackable_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stackable_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18665CDE67F7D4E30D03D45C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		3C9AE1519A14CD7439447FDE /* Stackable.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Stackable.podspec; path = ../Stackable.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -77,13 +79,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00200ED124E1A29800F0818F /* Support */ = {
+		00392CE224EC58DF001E2F99 /* Logo */ = {
+			isa = PBXGroup;
+			children = (
+				00392CE424EC598A001E2F99 /* LogoView.swift */,
+			);
+			path = Logo;
+			sourceTree = "<group>";
+		};
+		00392CE324EC58F6001E2F99 /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				00200ECF24E1A28B00F0818F /* UIView+ExampleLayoutHelpers.swift */,
 				00200ECD24E1A26500F0818F /* UIImage+ExampleAssets.swift */,
 			);
-			name = Support;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		5134614CA1AE573E9FFED2B3 /* Frameworks */ = {
@@ -119,10 +129,11 @@
 		607FACD21AFB9204008FA782 /* Example for Stackable */ = {
 			isa = PBXGroup;
 			children = (
+				00392CE324EC58F6001E2F99 /* Support */,
+				00392CE224EC58DF001E2F99 /* Logo */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ExampleMenuViewController.swift */,
 				00200ED224E1A2ED00F0818F /* MenuCell.swift */,
-				00200ED124E1A29800F0818F /* Support */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -355,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ExampleMenuViewController.swift in Sources */,
+				00392CE524EC598A001E2F99 /* LogoView.swift in Sources */,
 				00200ED324E1A2ED00F0818F /* MenuCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				00200ECE24E1A26500F0818F /* UIImage+ExampleAssets.swift in Sources */,
