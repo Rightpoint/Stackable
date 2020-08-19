@@ -70,7 +70,7 @@ private extension UIView {
         let view = DebugView(.init(
             shape: .outline,
             lineStyle: .solid,
-            color: .lightGray,
+            color: .groupTableViewBackground,
             lineWidth: 2
         ))
         view.accessibilityIdentifier = UIStackView.stackable.axID.debug.outline
@@ -112,7 +112,7 @@ private extension UIView {
         let view = DebugView(.init(
             shape: .outline,
             lineStyle: .dashed,
-            color: .lightGray,
+            color: .groupTableViewBackground,
             lineWidth: 2
         ))
         view.accessibilityIdentifier = UIStackView.stackable.axID.debug.margin
@@ -142,7 +142,7 @@ private extension UIView {
                 let debugView = DebugView(.init(
                     shape: axis == .vertical ? .height : .width,
                     lineStyle: isFlexible ? .dashed : .solid,
-                    color: .lightGray,
+                    color: UIColor.red.withAlphaComponent(0.5),
                     lineWidth: 2
                 ))
                 debugView.accessibilityIdentifier = axID
@@ -221,24 +221,37 @@ private class DebugView: UIView {
         if config.shape.contains(.height) {
             centerXShapeLayer.path = {
                 let path = UIBezierPath()
+                
+                let insetTransform = CGAffineTransform(translationX: 0, y: config.lineWidth)
+
                 let start = CGPoint(
                     x: bounds.midX,
                     y: bounds.minY
-                )
+                ).applying(insetTransform)
+                
                 let end = CGPoint(
                     x: bounds.midX,
                     y: bounds.maxY
-                )
+                ).applying(insetTransform.inverted())
+                
                 path.move(to: start)
                 path.addLine(to: end)
                 
-                let endCapOffsetStart = CGAffineTransform(translationX: -Constant.endCapSize, y: 0)
-                let endCapOffsetEnd = CGAffineTransform(translationX: Constant.endCapSize, y: 0)
-                path.move(to: start.applying(endCapOffsetStart))
-                path.addLine(to: start.applying(endCapOffsetEnd))
+                let capTransform = CGAffineTransform(translationX: Constant.endCapSize, y: 0)
                 
-                path.move(to: end.applying(endCapOffsetStart))
-                path.addLine(to: end.applying(endCapOffsetEnd))
+                path.move(to: start
+                    .applying(capTransform)
+                )
+                path.addLine(to: start
+                    .applying(capTransform.inverted())
+                )
+                
+                path.move(to: end
+                    .applying(capTransform)
+                )
+                path.addLine(to: end
+                    .applying(capTransform.inverted())
+                )
                 
                 return path.cgPath
             }()
@@ -249,18 +262,31 @@ private class DebugView: UIView {
         if config.shape.contains(.width) {
             centerYShapeLayer.path = {
                 let path = UIBezierPath()
+                
+                let insetTransform = CGAffineTransform(translationX: config.lineWidth, y: 0)
+                
                 let start = CGPoint(x: bounds.minX, y: bounds.midY)
+                    .applying(insetTransform)
                 let end = CGPoint(x: bounds.maxX, y: bounds.midY)
+                    .applying(insetTransform.inverted())
+                
                 path.move(to: start)
                 path.addLine(to: end)
                 
-                let endCapOffsetStart = CGAffineTransform(translationX: 0, y: -Constant.endCapSize)
-                let endCapOffsetEnd = CGAffineTransform(translationX: 0, y: Constant.endCapSize)
-                path.move(to: start.applying(endCapOffsetStart))
-                path.addLine(to: start.applying(endCapOffsetEnd))
+                let capTransform = CGAffineTransform(translationX: 0, y: Constant.endCapSize)
                 
-                path.move(to: end.applying(endCapOffsetStart))
-                path.addLine(to: end.applying(endCapOffsetEnd))
+                path.move(to: start
+                    .applying(capTransform))
+                path.addLine(to: start
+                    .applying(capTransform.inverted())
+                )
+                
+                path.move(to: end
+                    .applying(capTransform)
+                )
+                path.addLine(to: end
+                    .applying(capTransform.inverted())
+                )
                 
                 return path.cgPath
             }()

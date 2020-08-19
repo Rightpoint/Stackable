@@ -17,6 +17,7 @@ class ExampleMenuViewController: UIViewController {
         case settings  = "Settings"
         case contentList = "Content List"
         case contentDetail = "Content Detail"
+        case logo = "Logo"
     }
     
     let contentView: ScrollingStackView = {
@@ -33,6 +34,7 @@ class ExampleMenuViewController: UIViewController {
         view.addSubview(contentView)
         contentView.pinToSuperview(view)
         
+        view.backgroundColor = .green
         contentView.backgroundColor = .groupTableViewBackground
                 
         contentView.add([
@@ -65,7 +67,14 @@ extension ExampleMenuViewController  {
     }
     
     func exampleSelected(example: ExampleCell) {
-        print("pressed \(example)")
+        switch example {
+        case .logo:
+            let logoVC = LogoViewController()
+            navigationController?.pushViewController(logoVC, animated: true)
+            
+        default:
+            debugPrint("Example pressed: \(example)")
+        }
     }
     
     enum Constant  {
