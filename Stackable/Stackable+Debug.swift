@@ -29,6 +29,8 @@ public class DebugStackableExtension {
     
 }
 
+// MARK: - Public API
+
 public extension DebugStackableExtension {
 
     /// Draw an outline around all content subviews. Excludes `Stackable` spaces and hairlines.

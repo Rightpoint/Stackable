@@ -140,6 +140,7 @@ class LogoView: UIView {
         }
         NSLayoutConstraint.activate(lowPriorityFillConstraints)
         
+        // Adjust the width constraints of the image views relative to each other
         let widthProportions = [
             sTextImageView: 0.8,
             addImageView: 0.3,
@@ -152,8 +153,11 @@ class LogoView: UIView {
             listIconImageView: 0.4
         ]
         
+        // Factor that each number above will be multiplied by to achieve a total proportion of the `layoutMarginsGuide.width`
+        let widthMultiplier = 0.25
+        
         widthProportions.forEach { image, proportion in
-            let multiplier = CGFloat(proportion * 0.25)
+            let multiplier = CGFloat(proportion * widthMultiplier)
             image.widthAnchor.constraint(equalTo: layoutMarginsGuide.widthAnchor, multiplier: multiplier).isActive = true
         }
         
