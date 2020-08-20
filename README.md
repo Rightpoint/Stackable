@@ -1,5 +1,7 @@
 # Stackable
 
+![Logo](docs/LogoRender.png)
+
 **Stackable** is a delightful and declarative set of utilities for `UIStackView`. It is designed to make your layout code easier to write, read, and communicate with your designer.
 
 [![CI Status](https://img.shields.io/travis/jason.clark@raizlabs.com/Stackable.svg?style=flat)](https://travis-ci.org/jason.clark@raizlabs.com/Stackable)
@@ -25,6 +27,9 @@ Stackable aims to bridge the gap between the way designers articulate layout and
       "Copyright Rightpoint",
   ])
 ```
+
+![Example](docs/MenuExampleRender.png)
+
 # Usage
 ## Views
 **Stackable** includes built-in support for all `UIView` subclasses.
