@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let exampleViewController = ExampleMenuViewController()
         let navigationController = UINavigationController(rootViewController: exampleViewController)
-        window.rootViewController = LogoViewController()
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
         return true

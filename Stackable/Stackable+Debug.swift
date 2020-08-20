@@ -112,7 +112,7 @@ private extension UIView {
         let view = DebugView(.init(
             shape: .outline,
             lineStyle: .dashed,
-            color: .groupTableViewBackground,
+            color: UIColor.black.withAlphaComponent(0.1),
             lineWidth: 2
         ))
         view.accessibilityIdentifier = UIStackView.stackable.axID.debug.margin
@@ -142,7 +142,7 @@ private extension UIView {
                 let debugView = DebugView(.init(
                     shape: axis == .vertical ? .height : .width,
                     lineStyle: isFlexible ? .dashed : .solid,
-                    color: UIColor.red.withAlphaComponent(0.5),
+                    color: UIColor.red.withAlphaComponent(0.3),
                     lineWidth: 2
                 ))
                 debugView.accessibilityIdentifier = axID
@@ -308,7 +308,7 @@ private class DebugView: UIView {
             
         case .dashed:
             shapeLayer.lineJoin = CAShapeLayerLineJoin.round
-            shapeLayer.lineDashPattern = [4, 1]
+            shapeLayer.lineDashPattern = [4, 2]
         }
 
         return shapeLayer

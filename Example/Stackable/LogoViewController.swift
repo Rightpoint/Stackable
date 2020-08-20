@@ -14,6 +14,8 @@ class LogoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        title = "Stackable Logo"
+        
         let logo = LogoView()
         view.addSubview(logo)
         
@@ -29,67 +31,15 @@ class LogoViewController: UIViewController {
 
 class LogoView: UIView {
         
-    lazy var sTextImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .sText))
-        imageView.contentMode = .scaleAspectFit
-        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        return imageView
-    }()
-    
-    lazy var addImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .add))
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    lazy var locationImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .location))
-        imageView.contentMode = .scaleAspectFit
-        imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        return imageView
-    }()
-    
-    lazy var progressRingsImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .progressRings))
-       imageView.contentMode = .scaleAspectFit
-       imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-       return imageView
-    }()
-    
-    lazy var backImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .back))
-       imageView.contentMode = .scaleAspectFit
-       imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-       return imageView
-    }()
-    
-    lazy var appStoreImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .appStore))
-       imageView.contentMode = .scaleAspectFit
-       imageView.widthAnchor.constraint(equalToConstant: 75).isActive = true
-       return imageView
-    }()
-    
-    lazy var bluetoothImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .bluetooth))
-       imageView.contentMode = .scaleAspectFit
-       imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-       return imageView
-    }()
-    
-    lazy var numberOneImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .numberOne))
-       imageView.contentMode = .scaleAspectFit
-       imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-       return imageView
-    }()
-    
-    lazy var listIconImageView: UIImageView = {
-        let imageView = UIImageView(image: .init(asset: .list))
-       imageView.contentMode = .scaleAspectFit
-       imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-       return imageView
-    }()
+    let sTextImageView = ImageView(.sText)
+    let addImageView = ImageView(.add)
+    let locationImageView = ImageView(.location)
+    let progressRingsImageView = ImageView(.progressRings)
+    let backImageView = ImageView(.back)
+    let appStoreImageView = ImageView(.appStore)
+    let bluetoothImageView = ImageView(.bluetooth)
+    let numberOneImageView = ImageView(.numberOne)
+    let listIconImageView = ImageView(.list)
     
     let stack: UIStackView = {
         let stack = UIStackView()
@@ -97,13 +47,13 @@ class LogoView: UIView {
         stack.axis = .vertical
         return stack
     }()
-    
+
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(stack)
-        applyConstraints()
         configureLayout()
+        applyConstraints()
     }
     
     func configureLayout() {
@@ -112,18 +62,19 @@ class LogoView: UIView {
         firstRow.axis = .horizontal
         firstRow.stackable.add([
             sTextImageView,
-            20,
+            10,
             addImageView
                 .aligned(.top)
-                .inset(by: .init(top: 10, left: 10, bottom: 10, right: 10)),
-            20,
+                .inset(by: .init(top: 15, left: 10, bottom: 10, right: 10)),
+            10,
             locationImageView
                 .aligned(.centerY),
             20,
             progressRingsImageView
                 .aligned(.centerY),
-            20,
+            15,
             backImageView
+                .inset(by: .init(top: 0, left: 0, bottom: 10, right: 0))
                 .aligned(.centerY),
         ])
         
@@ -133,10 +84,11 @@ class LogoView: UIView {
         secondRow.stackable.add([
             UIStackView.stackable.flexibleSpace,
             appStoreImageView,
-            20,
+            15,
             bluetoothImageView,
             20,
-            numberOneImageView,
+            numberOneImageView
+                .inset(by: .init(top: 10, left: 0, bottom: 10, right: 0)),
             20,
             listIconImageView
                 .aligned(.centerY),
@@ -144,25 +96,39 @@ class LogoView: UIView {
         
         stack.stackable.add([
             firstRow,
-            20,
+            15,
             secondRow,
         ])
         
-        stack.stackable.debug.showSpaces()
+        stack.stackable.debug.showMargins()
         stack.stackable.debug.showOutlines()
+        stack.stackable.debug.showSpaces()
+    }
+    
+    static func ImageView(_ asset: UIImage.Asset) -> UIImageView {
+        let imageView = UIImageView(image: .init(asset: asset))
+        imageView.contentMode = .scaleAspectFit
+        imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
+        return imageView
     }
         
     func applyConstraints() {
+
         NSLayoutConstraint.activate([
+            // Logo should not exceed container
             stack.leadingAnchor.constraint(greaterThanOrEqualTo: layoutMarginsGuide.leadingAnchor),
             stack.topAnchor.constraint(greaterThanOrEqualTo: layoutMarginsGuide.topAnchor),
             stack.bottomAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.bottomAnchor),
             stack.trailingAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.trailingAnchor),
+            
+            // Logo should stay centered
             stack.centerXAnchor.constraint(equalTo: layoutMarginsGuide.centerXAnchor),
             stack.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor),
         ])
         
         let lowPriorityFillConstraints = [
+            // Logo should attempt to fill container if possible
             stack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             stack.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             stack.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
@@ -172,6 +138,24 @@ class LogoView: UIView {
             $0.priority = .defaultLow
         }
         NSLayoutConstraint.activate(lowPriorityFillConstraints)
+        
+        let widthProportions = [
+            sTextImageView: 0.8,
+            addImageView: 0.3,
+            locationImageView: 0.3,
+            progressRingsImageView: 0.7,
+            backImageView: 0.4,
+            appStoreImageView: 0.5,
+            bluetoothImageView: 0.5,
+            numberOneImageView: 0.25,
+            listIconImageView: 0.4
+        ]
+        
+        widthProportions.forEach { image, proportion in
+            let multiplier = CGFloat(proportion * 0.25)
+            image.widthAnchor.constraint(equalTo: layoutMarginsGuide.widthAnchor, multiplier: multiplier).isActive = true
+        }
+        
     }
     
     required init?(coder: NSCoder) {

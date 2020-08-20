@@ -34,14 +34,12 @@ class ExampleMenuViewController: UIViewController {
         view.addSubview(contentView)
         contentView.pinToSuperview(view)
         
-        view.backgroundColor = .green
+        title = "Stackable"
+        
         contentView.backgroundColor = .groupTableViewBackground
                 
         contentView.add([
             UIImage(asset: .example),
-            20,
-            "Stackable Example"
-                .aligned(.centerX),
             20,
             cells
                 .outset(to: view)

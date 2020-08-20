@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0017BE0F24EEAD8A000534BB /* Stackable+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0017BE0D24EEAD8A000534BB /* Stackable+Debug.swift */; };
+		0017BE1024EEAD8A000534BB /* Stackable+A11y.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0017BE0E24EEAD8A000534BB /* Stackable+A11y.swift */; };
 		00200EC224D9EB2600F0818F /* UIStackView+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */; };
 		00200EC324D9EB2600F0818F /* Stackable+Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */; };
 		00200EC424D9EB2600F0818F /* Stackable+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */; };
@@ -18,8 +20,6 @@
 		00392CDC24E5A1C5001E2F99 /* Attachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CD824E5A1C4001E2F99 /* Attachable.swift */; };
 		00392CDD24E5A1C5001E2F99 /* UIView+BindVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CD924E5A1C4001E2F99 /* UIView+BindVisible.swift */; };
 		00392CDE24E5A1C5001E2F99 /* AlignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CDA24E5A1C4001E2F99 /* AlignmentView.swift */; };
-		00392CE724EC6060001E2F99 /* Stackable+A11y.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CE624EC6060001E2F99 /* Stackable+A11y.swift */; };
-		00392CE924EC6542001E2F99 /* Stackable+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00392CE824EC6542001E2F99 /* Stackable+Debug.swift */; };
 		0062983024D32BA3007C707F /* Stackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0062982F24D32BA3007C707F /* Stackable.swift */; };
 		120C3C6960AF541FA3ACD680E3C3C3E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		3FDD4B0AD5003436C4E060CACA94A775 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
@@ -50,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0017BE0D24EEAD8A000534BB /* Stackable+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Debug.swift"; path = "Stackable/Stackable+Debug.swift"; sourceTree = "<group>"; };
+		0017BE0E24EEAD8A000534BB /* Stackable+A11y.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+A11y.swift"; path = "Stackable/Stackable+A11y.swift"; sourceTree = "<group>"; };
 		00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIStackView+Utilities.swift"; path = "Stackable/UIStackView+Utilities.swift"; sourceTree = "<group>"; };
 		00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Spacing.swift"; path = "Stackable/Stackable+Spacing.swift"; sourceTree = "<group>"; };
 		00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Alignment.swift"; path = "Stackable/Stackable+Alignment.swift"; sourceTree = "<group>"; };
@@ -61,8 +63,6 @@
 		00392CD824E5A1C4001E2F99 /* Attachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachable.swift; sourceTree = "<group>"; };
 		00392CD924E5A1C4001E2F99 /* UIView+BindVisible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+BindVisible.swift"; sourceTree = "<group>"; };
 		00392CDA24E5A1C4001E2F99 /* AlignmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlignmentView.swift; sourceTree = "<group>"; };
-		00392CE624EC6060001E2F99 /* Stackable+A11y.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stackable+A11y.swift"; sourceTree = "<group>"; };
-		00392CE824EC6542001E2F99 /* Stackable+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stackable+Debug.swift"; sourceTree = "<group>"; };
 		0062982F24D32BA3007C707F /* Stackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stackable.swift; path = Stackable/Stackable.swift; sourceTree = "<group>"; };
 		09876B288C2DD066F095358BFE5B209B /* Stackable-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Stackable-Info.plist"; sourceTree = "<group>"; };
 		19B0ADC9CD06C9C4335FBA7BAC2AEE73 /* Pods-Stackable_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Stackable_Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -160,8 +160,8 @@
 				00200EC124D9EB2600F0818F /* Stackable+Hairlines.swift */,
 				00200ED924E2F25100F0818F /* Stackable+Views.swift */,
 				00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */,
-				00392CE624EC6060001E2F99 /* Stackable+A11y.swift */,
-				00392CE824EC6542001E2F99 /* Stackable+Debug.swift */,
+				0017BE0E24EEAD8A000534BB /* Stackable+A11y.swift */,
+				0017BE0D24EEAD8A000534BB /* Stackable+Debug.swift */,
 				00200EDB24E2F26500F0818F /* ScrollingStackView.swift */,
 				00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */,
 				00392CD624E5A1C4001E2F99 /* Support */,
@@ -426,7 +426,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00392CE924EC6542001E2F99 /* Stackable+Debug.swift in Sources */,
 				00200EC324D9EB2600F0818F /* Stackable+Spacing.swift in Sources */,
 				00392CDC24E5A1C5001E2F99 /* Attachable.swift in Sources */,
 				00200EC724D9EB2600F0818F /* Stackable+Extended.swift in Sources */,
@@ -435,10 +434,11 @@
 				00200EC424D9EB2600F0818F /* Stackable+Alignment.swift in Sources */,
 				506DDB2FDF058AF963DA2FE01B59D79C /* Stackable-dummy.m in Sources */,
 				00200EDA24E2F25100F0818F /* Stackable+Views.swift in Sources */,
-				00392CE724EC6060001E2F99 /* Stackable+A11y.swift in Sources */,
 				00200EDC24E2F26500F0818F /* ScrollingStackView.swift in Sources */,
 				00200EC824D9EB2600F0818F /* Stackable+Hairlines.swift in Sources */,
+				0017BE0F24EEAD8A000534BB /* Stackable+Debug.swift in Sources */,
 				00392CDB24E5A1C5001E2F99 /* Utilities.swift in Sources */,
+				0017BE1024EEAD8A000534BB /* Stackable+A11y.swift in Sources */,
 				00392CDD24E5A1C5001E2F99 /* UIView+BindVisible.swift in Sources */,
 				00200EC224D9EB2600F0818F /* UIStackView+Utilities.swift in Sources */,
 			);
