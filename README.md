@@ -1,6 +1,4 @@
-# Stackable
-
-![Logo](docs/LogoRender.png)
+<img src="https://github.com/Rightpoint/Stackable/blob/develop/docs/LogoRender.png" height="300">
 
 **Stackable** is a delightful and declarative set of utilities for `UIStackView`. It is designed to make your layout code easier to write, read, and communicate with your designer.
 
@@ -28,9 +26,8 @@ Stackable aims to bridge the gap between the way designers articulate layout and
   ])
 ```
 
-![Example](docs/MenuExampleRender.png)
+<img src="https://github.com/Rightpoint/Stackable/blob/develop/docs/MenuExampleRender.png" height="600">
 
-# Usage
 ## Views
 **Stackable** includes built-in support for all `UIView` subclasses.
 
