@@ -9,6 +9,7 @@ import Foundation
 
 public extension StackableExtension where ExtendedType == UIStackView {
 
+    /// Debug API extension point
     var debug: DebugStackableExtension  {
         get {
             return DebugStackableExtension(base)
@@ -18,6 +19,7 @@ public extension StackableExtension where ExtendedType == UIStackView {
     
 }
 
+/// Type that acts as a generic extension point for all `StackableExtended` types.
 public class DebugStackableExtension {
 
     public private(set) var stack: UIStackView
@@ -29,30 +31,43 @@ public class DebugStackableExtension {
 
 public extension DebugStackableExtension {
 
+    /// Draw an outline around all content subviews. Excludes `Stackable` spaces and hairlines.
     func showOutlines() {
         stack.debug_outline(recurse: true)
     }
     
+    /// Draw an outline around all content subviews' layoutMarginsGuide. Excludes `Stackable` spaces and hairlines.
     func showMargins() {
         stack.debug_showMargins(recurse: true)
     }
     
+    /// Illustrate the `Stackable` spaces of all children of this `UIStackView`. Fixed spaces represented by a solid line. Flexible spaces represented by a dotted line.
     func showSpaces() {
         stack.debug_showSpaces(axis: stack.axis)
     }
-        
+
 }
+
+// MARK: - Private
 
 private extension UIView {
     
+    /// Add a view illustrating the outline of this view and every subview, excluding `Stackable` space, hairline, and debug views.
     func debug_outline(recurse: Bool) {
-        if let stackView = (self as? UIStackView), recurse {
-            stackView.arrangedSubviews.forEach { $0.debug_outline(recurse: true) }
-        }
-        else if recurse {
-            subviews.forEach { $0.debug_outline(recurse: true) }
+        
+        // If recursive, dive into subviews or arranged subviews appropriately.
+        if recurse {
+            if let stackView = (self as? UIStackView) {
+                stackView.arrangedSubviews.forEach {
+                    $0.debug_outline(recurse: true)
+                }
+            }
+            else {
+                subviews.forEach { $0.debug_outline(recurse: true) }
+            }
         }
         
+        // list of accessibility identifiers to skip
         let axIdBlacklist: [String] = [
             UIStackView.stackable.axID.space,
             UIStackView.stackable.axID.hairline,
@@ -63,6 +78,7 @@ private extension UIView {
         
         if let axID = accessibilityIdentifier, axIdBlacklist.contains(axID) { return }
         
+        // Make sure we haven't added an outline debug view already
         guard !subviews.contains(where: {
             $0.accessibilityIdentifier == UIStackView.stackable.axID.debug.outline
         }) else { return }
@@ -85,16 +101,22 @@ private extension UIView {
         ])
     }
 
+    /// Add a view illustrating the `layoutMarginsGuide` of this view and every subview, excluding `Stackable` space, hairline, and debug views.
     func debug_showMargins(recurse: Bool) {
+        
+        // If recursive, dive into subviews or arranged subviews appropriately.
         if recurse {
             if let stackView = (self as? UIStackView) {
-                stackView.arrangedSubviews.forEach { $0.debug_showMargins(recurse: true) }
+                stackView.arrangedSubviews.forEach {
+                    $0.debug_showMargins(recurse: true)
+                }
             }
             else {
                 subviews.forEach { $0.debug_showMargins(recurse: true) }
             }
         }
         
+        // list of accessibility identifiers to skip
         let axIdBlacklist: [String] = [
             UIStackView.stackable.axID.space,
             UIStackView.stackable.axID.hairline,
@@ -105,6 +127,7 @@ private extension UIView {
         
         if let axID = accessibilityIdentifier, axIdBlacklist.contains(axID) { return }
         
+        // Make sure we haven't added an margin debug view already
         guard !subviews.contains(where: {
             $0.accessibilityIdentifier == UIStackView.stackable.axID.debug.margin
         }) else { return }
@@ -127,21 +150,29 @@ private extension UIView {
         ])
     }
     
+    /// Add a view illustrating the direction and size of `Stackable` spaces in all subviews.
     func debug_showSpaces(axis: NSLayoutConstraint.Axis) {
         switch self  {
+            // If we have landed on a StackableSpace, add debug view
             case _ where accessibilityIdentifier == UIStackView.stackable.axID.space:
+                
+                // Make sure we haven't added a debug space viz view already
                 let axID = UIStackView.stackable.axID.debug.space
                 guard !subviews.contains(where: {
                     $0.accessibilityIdentifier == axID
                 })
                 else { return }
                 
+                // Determine from the contstraints if this is a firm or flexible space.
                 guard let constraint = constraints.first else { return }
                 let isFlexible = constraint.relation != .equal
                 
+                // Flexible constraints get dashed lines
+                let lineStyle: DebugView.LineStyle = isFlexible ? .dashed : .solid
+                
                 let debugView = DebugView(.init(
                     shape: axis == .vertical ? .height : .width,
-                    lineStyle: isFlexible ? .dashed : .solid,
+                    lineStyle: lineStyle,
                     color: UIColor.red.withAlphaComponent(0.3),
                     lineWidth: 2
                 ))
@@ -157,17 +188,20 @@ private extension UIView {
                 ])
             
             case let stackView as UIStackView:
+                // If we are a stack view, recurse
                 stackView.arrangedSubviews.forEach {
                     $0.debug_showSpaces(axis: stackView.axis)
                 }
                 
             default:
+                // otherwise, recurse to subviews if they exist
                 subviews.forEach { $0.debug_showSpaces(axis: axis) }
         }
     }
     
 }
 
+/// A view that draws debug vizualizations, to be aligned with content views.
 private class DebugView: UIView {
     
     struct Shape: OptionSet {
@@ -222,6 +256,7 @@ private class DebugView: UIView {
             centerXShapeLayer.path = {
                 let path = UIBezierPath()
                 
+                // Inset from bounds so stroke doesn't bleed over bounds
                 let insetTransform = CGAffineTransform(translationX: 0, y: config.lineWidth)
 
                 let start = CGPoint(
@@ -237,6 +272,7 @@ private class DebugView: UIView {
                 path.move(to: start)
                 path.addLine(to: end)
                 
+                // Transform that defines how far off of center we should draw endcaps
                 let capTransform = CGAffineTransform(translationX: Constant.endCapSize, y: 0)
                 
                 path.move(to: start
@@ -263,6 +299,7 @@ private class DebugView: UIView {
             centerYShapeLayer.path = {
                 let path = UIBezierPath()
                 
+                // Inset from bounds so stroke doesn't bleed over bounds
                 let insetTransform = CGAffineTransform(translationX: config.lineWidth, y: 0)
                 
                 let start = CGPoint(x: bounds.minX, y: bounds.midY)
@@ -273,6 +310,7 @@ private class DebugView: UIView {
                 path.move(to: start)
                 path.addLine(to: end)
                 
+                // Transform that defines how far off of center we should draw endcaps
                 let capTransform = CGAffineTransform(translationX: 0, y: Constant.endCapSize)
                 
                 path.move(to: start
