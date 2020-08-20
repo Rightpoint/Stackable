@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0017BE0F24EEAD8A000534BB /* Stackable+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0017BE0D24EEAD8A000534BB /* Stackable+Debug.swift */; };
+		0017BE1024EEAD8A000534BB /* Stackable+A11y.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0017BE0E24EEAD8A000534BB /* Stackable+A11y.swift */; };
 		00200EC224D9EB2600F0818F /* UIStackView+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */; };
 		00200EC324D9EB2600F0818F /* Stackable+Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */; };
 		00200EC424D9EB2600F0818F /* Stackable+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0017BE0D24EEAD8A000534BB /* Stackable+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Debug.swift"; path = "Stackable/Stackable+Debug.swift"; sourceTree = "<group>"; };
+		0017BE0E24EEAD8A000534BB /* Stackable+A11y.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+A11y.swift"; path = "Stackable/Stackable+A11y.swift"; sourceTree = "<group>"; };
 		00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIStackView+Utilities.swift"; path = "Stackable/UIStackView+Utilities.swift"; sourceTree = "<group>"; };
 		00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Spacing.swift"; path = "Stackable/Stackable+Spacing.swift"; sourceTree = "<group>"; };
 		00200EBD24D9EB2600F0818F /* Stackable+Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Stackable+Alignment.swift"; path = "Stackable/Stackable+Alignment.swift"; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				00200EC124D9EB2600F0818F /* Stackable+Hairlines.swift */,
 				00200ED924E2F25100F0818F /* Stackable+Views.swift */,
 				00200EBC24D9EB2600F0818F /* Stackable+Spacing.swift */,
+				0017BE0E24EEAD8A000534BB /* Stackable+A11y.swift */,
+				0017BE0D24EEAD8A000534BB /* Stackable+Debug.swift */,
 				00200EDB24E2F26500F0818F /* ScrollingStackView.swift */,
 				00200EBB24D9EB2600F0818F /* UIStackView+Utilities.swift */,
 				00392CD624E5A1C4001E2F99 /* Support */,
@@ -430,7 +436,9 @@
 				00200EDA24E2F25100F0818F /* Stackable+Views.swift in Sources */,
 				00200EDC24E2F26500F0818F /* ScrollingStackView.swift in Sources */,
 				00200EC824D9EB2600F0818F /* Stackable+Hairlines.swift in Sources */,
+				0017BE0F24EEAD8A000534BB /* Stackable+Debug.swift in Sources */,
 				00392CDB24E5A1C5001E2F99 /* Utilities.swift in Sources */,
+				0017BE1024EEAD8A000534BB /* Stackable+A11y.swift in Sources */,
 				00392CDD24E5A1C5001E2F99 /* UIView+BindVisible.swift in Sources */,
 				00200EC224D9EB2600F0818F /* UIStackView+Utilities.swift in Sources */,
 			);

@@ -17,12 +17,21 @@ class ExampleMenuViewController: UIViewController {
         case settings  = "Settings"
         case contentList = "Content List"
         case contentDetail = "Content Detail"
+        case logo = "Logo"
     }
     
     let contentView: ScrollingStackView = {
         let view = ScrollingStackView()
         view.layoutMargins = Constant.margins
         return view
+    }()
+    
+    let logo: LogoView = {
+        let logo = LogoView()
+        logo.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        logo.layer.borderWidth = 2.0
+        logo.backgroundColor = .white
+        return logo
     }()
     
     lazy var cells: [UIView] = ExampleCell.allCases.map(cell(for:))
@@ -33,14 +42,15 @@ class ExampleMenuViewController: UIViewController {
         view.addSubview(contentView)
         contentView.pinToSuperview(view)
         
+        title = "Stackable"
+        
         contentView.backgroundColor = .groupTableViewBackground
                 
         contentView.add([
-            UIImage(asset: .example),
-            20,
-            "Stackable Example"
-                .aligned(.centerX),
-            20,
+            logo,
+            30,
+            "Example Views:",
+            10,
             cells
                 .outset(to: view)
                 .margins(alignedWith: contentView),
@@ -65,7 +75,14 @@ extension ExampleMenuViewController  {
     }
     
     func exampleSelected(example: ExampleCell) {
-        print("pressed \(example)")
+        switch example {
+        case .logo:
+            let logoVC = LogoViewController()
+            navigationController?.pushViewController(logoVC, animated: true)
+            
+        default:
+            debugPrint("Example pressed: \(example)")
+        }
     }
     
     enum Constant  {

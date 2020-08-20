@@ -116,7 +116,7 @@ private class RetainCycleViewController: UIViewController {
     }
     
     func buttonPressed() {
-        print("Button Pressed!")
+        debugPrint("Button Pressed!")
     }
     
     class Button: UIButton {

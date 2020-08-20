@@ -12,7 +12,6 @@ extension UIView {
     
     func pinToSuperviewMargins(_ view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
-        view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
@@ -23,7 +22,6 @@ extension UIView {
     
     func pinToSuperview(_ view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
-        view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: view.topAnchor),
             leadingAnchor.constraint(equalTo: view.leadingAnchor),
