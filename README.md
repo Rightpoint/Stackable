@@ -19,7 +19,7 @@ Stackable aims to bridge the gap between the way designers articulate layout and
       10,
       cells
           .outset(to: view)
-          .margins(alignedWith: contentView),
+          .margins(alignedWith: stack),
       UIStackView.stackable.hairlines(around: cells)
           .outset(to: view),
       20...,
