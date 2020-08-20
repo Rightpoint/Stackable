@@ -1,3 +1,5 @@
+# Stackable
+
 <img src="https://github.com/Rightpoint/Stackable/blob/develop/docs/LogoRender.png" height="300">
 
 **Stackable** is a delightful and declarative set of utilities for `UIStackView`. It is designed to make your layout code easier to write, read, and communicate with your designer.
@@ -11,11 +13,10 @@ Stackable aims to bridge the gap between the way designers articulate layout and
 
 ```swift
   stack.stackable.add([
-      UIImage(named: "Example"),
-      20,
-      "Stackable Example"
-          .aligned(.centerX),
-      20,
+      logo,
+      30,
+      "Example Views",
+      10,
       cells
           .outset(to: view)
           .margins(alignedWith: contentView),
