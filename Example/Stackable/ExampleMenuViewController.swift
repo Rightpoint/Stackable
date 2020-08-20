@@ -26,6 +26,14 @@ class ExampleMenuViewController: UIViewController {
         return view
     }()
     
+    let logo: LogoView = {
+        let logo = LogoView()
+        logo.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        logo.layer.borderWidth = 2.0
+        logo.backgroundColor = .white
+        return logo
+    }()
+    
     lazy var cells: [UIView] = ExampleCell.allCases.map(cell(for:))
     
     override func viewDidLoad() {
@@ -39,8 +47,10 @@ class ExampleMenuViewController: UIViewController {
         contentView.backgroundColor = .groupTableViewBackground
                 
         contentView.add([
-            UIImage(asset: .example),
-            20,
+            logo,
+            30,
+            "Example Views:",
+            10,
             cells
                 .outset(to: view)
                 .margins(alignedWith: contentView),

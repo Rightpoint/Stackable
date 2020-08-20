@@ -50,6 +50,7 @@ class LogoView: UIView {
 
     init() {
         super.init(frame: .zero)
+        layoutMargins = .zero
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(stack)
         configureLayout()
