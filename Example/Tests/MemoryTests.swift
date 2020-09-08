@@ -3,7 +3,7 @@
 //  Stackable_Tests
 //
 //  Created by Jason Clark on 8/17/20.
-//  Copyright © 2020 CocoaPods. All rights reserved.
+//  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
 import Stackable
