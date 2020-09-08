@@ -3,7 +3,7 @@
 //  Stackable
 //
 //  Created by Jay Clark on 07/30/2020.
-//  Copyright (c) 2020 Rightpoint. All rights reserved.
+//  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
 import UIKit

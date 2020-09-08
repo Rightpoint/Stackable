@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Stackable
 //
-//  Created by jason.clark@raizlabs.com on 07/30/2020.
-//  Copyright (c) 2020 jason.clark@raizlabs.com. All rights reserved.
+//  Created by Jay Clark on 07/30/2020.
+//  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
 import UIKit

@@ -3,6 +3,7 @@
 //  Stackable
 //
 //  Created by Jason Clark on 7/31/20.
+//  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
 import Foundation

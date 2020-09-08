@@ -3,7 +3,7 @@
 //  Stackable_Example
 //
 //  Created by Jason Clark on 8/19/20.
-//  Copyright © 2020 CocoaPods. All rights reserved.
+//  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
 import Stackable
