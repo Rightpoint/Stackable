@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jclark@rightpoint.com' => 'jclark@rightpoint.com' }
-  s.source           = { :git => 'https://github.com/jason.clark@raizlabs.com/Stackable.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Rightpoint/Stackable.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '12.0'
   s.swift_versions = ['5.0']

@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## Stackable
 
-Copyright (c) 2020 jason.clark@raizlabs.com <jason.clark@raizlabs.com>
+Copyright (c) 2020 Rightpoint
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

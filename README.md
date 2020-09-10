@@ -4,7 +4,6 @@
 
 **Stackable** is a delightful and declarative set of utilities for `UIStackView`. It is designed to make your layout code easier to write, read, and communicate with your designer.
 
-[![CI Status](https://img.shields.io/travis/jason.clark@raizlabs.com/Stackable.svg?style=flat)](https://travis-ci.org/jason.clark@raizlabs.com/Stackable)
 [![Version](https://img.shields.io/cocoapods/v/Stackable.svg?style=flat)](https://cocoapods.org/pods/Stackable)
 [![License](https://img.shields.io/cocoapods/l/Stackable.svg?style=flat)](https://cocoapods.org/pods/Stackable)
 [![Platform](https://img.shields.io/cocoapods/p/Stackable.svg?style=flat)](https://cocoapods.org/pods/Stackable)
