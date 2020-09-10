@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'Stackable_Example' do
-  pod 'Stackable', :path => '../'
+  pod 'RPStackable', :path => '../'
 
   target 'Stackable_Tests' do
     inherit! :search_paths
