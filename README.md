@@ -4,9 +4,9 @@
 
 **Stackable** is a delightful and declarative set of utilities for `UIStackView`. It is designed to make your layout code easier to write, read, and communicate with your designer.
 
-[![Version](https://img.shields.io/cocoapods/v/Stackable.svg?style=flat)](https://cocoapods.org/pods/Stackable)
-[![License](https://img.shields.io/cocoapods/l/Stackable.svg?style=flat)](https://cocoapods.org/pods/Stackable)
-[![Platform](https://img.shields.io/cocoapods/p/Stackable.svg?style=flat)](https://cocoapods.org/pods/Stackable)
+[![Version](https://img.shields.io/cocoapods/v/RPStackable.svg?style=flat)](https://cocoapods.org/pods/RPStackable)
+[![License](https://img.shields.io/cocoapods/l/RPStackable.svg?style=flat)](https://cocoapods.org/pods/RPStackable)
+[![Platform](https://img.shields.io/cocoapods/p/RPStackable.svg?style=flat)](https://cocoapods.org/pods/RPStackable)
 
 Stackable aims to bridge the gap between the way designers articulate layout and the way developers express that layout in code.
 
@@ -27,6 +27,13 @@ Stackable aims to bridge the gap between the way designers articulate layout and
 ```
 
 <img src="https://github.com/Rightpoint/Stackable/blob/develop/docs/MenuExampleRender.png" height="600">
+
+Stackable is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'RPStackable'
+```
 
 ## Views
 **Stackable** includes built-in support for all `UIView` subclasses.
