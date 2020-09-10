@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint Stackable.podspec' to ensure this is a
+# Be sure to run `pod lib lint RPStackable.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
