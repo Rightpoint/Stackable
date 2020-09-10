@@ -94,7 +94,7 @@
 		DBEB13EAE7AB5A23112911439FBCECC0 /* Pods-Stackable_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Stackable_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		DC332152B82CEE7EEE1BD683C7B2E436 /* Pods_Stackable_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stackable_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3D8503340AF7DA37FA82397D79D178B /* Pods-Stackable_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Stackable_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		FA9F2375FA38DF983CBEF5953328CE1E /* Stackable.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = Stackable.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		FA9F2375FA38DF983CBEF5953328CE1E /* RPStackable.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = RPStackable.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,7 +245,7 @@
 			children = (
 				741C90FD19D05938921E806321EB9DF8 /* LICENSE */,
 				573475F39DDEE270731574595FFB3619 /* README.md */,
-				FA9F2375FA38DF983CBEF5953328CE1E /* Stackable.podspec */,
+				FA9F2375FA38DF983CBEF5953328CE1E /* RPStackable.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
