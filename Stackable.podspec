@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Stackable'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of Stackable.'
+  s.summary          = 'Stackable is a delightful and declarative set of utilities for UIStackView.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,17 +18,18 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  Stackable is a delightful and declarative set of utilities for UIStackView. It is designed to make your layout code easier to write, read, and communicate with your designer. Stackable aims to bridge the gap between the way designers articulate layout and the way developers express that layout in code.
                        DESC
 
-  s.homepage         = 'https://github.com/jason.clark@raizlabs.com/Stackable'
+  s.homepage         = 'https://github.com/Rightpoint/Stackable'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jclark@rightpoint.com' => 'jclark@rightpoint.com' }
   s.source           = { :git => 'https://github.com/jason.clark@raizlabs.com/Stackable.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '12.0'
-
+  s.swift_versions = ['5.0']
+  
   s.source_files = 'Stackable/**/*'
 
   # s.public_header_files = 'Pod/**/*.h'
