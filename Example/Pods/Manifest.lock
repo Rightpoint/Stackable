@@ -1,16 +1,16 @@
 PODS:
-  - Stackable (0.1.0)
+  - RPStackable (0.1.0)
 
 DEPENDENCIES:
-  - Stackable (from `../`)
+  - RPStackable (from `../`)
 
 EXTERNAL SOURCES:
-  Stackable:
+  RPStackable:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Stackable: 7368cdd003e677cebc9f9d269fe0a477e681a9f3
+  RPStackable: e55826d61a60f2820c041bcdfb18d989c35d9690
 
-PODFILE CHECKSUM: 51d96aa852d3d196937c744535201e104dff2f0e
+PODFILE CHECKSUM: 47e465427354cf8d0ff4c2ddae85f463317e3c46
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.9.3

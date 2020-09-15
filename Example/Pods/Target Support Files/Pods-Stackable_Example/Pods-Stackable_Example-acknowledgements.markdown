@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Stackable
+## RPStackable
 
 Copyright (c) 2020 Rightpoint
 
