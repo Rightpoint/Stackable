@@ -86,7 +86,7 @@ internal final class AlignmentView: UIView {
             ])
         }
 
-        self.bindVisible(to: wrapped)
+        self.stackable.bindVisible(to: wrapped)
     }
 
     @available(*, unavailable) required init?(coder aDecoder: NSCoder) {

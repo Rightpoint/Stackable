@@ -232,7 +232,7 @@ extension StackableSpaceItem: Stackable {
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
             stackView.stackable.insertArrangedSubview(spacer, beforeArrangedSubview: view)
-            spacer.bindVisible(to: view)
+            spacer.stackable.bindVisible(to: view)
 
         case let .spaceAfter(view, space):
             let spacer = StackableSpacer()
@@ -241,7 +241,7 @@ extension StackableSpaceItem: Stackable {
                 spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
             ])
             stackView.stackable.insertArrangedSubview(spacer, afterArrangedSubview: view)
-            spacer.bindVisible(to: view)
+            spacer.stackable.bindVisible(to: view)
 
         case let .spaceAfterGroup(views, space):
             let spacer = StackableSpacer()
@@ -252,7 +252,7 @@ extension StackableSpaceItem: Stackable {
             if let view = views.last {
                 stackView.stackable.insertArrangedSubview(spacer, afterArrangedSubview: view)
             }
-            spacer.bindVisible(toAnyVisible: views)
+            spacer.stackable.bindVisible(toAnyVisible: views)
 
         case let .flexibleSpace(.atLeast(space)):
             let spacer = StackableSpacer()
