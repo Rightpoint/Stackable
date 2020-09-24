@@ -67,7 +67,6 @@ public extension StackableExtension where ExtendedType == UIStackView {
     static func hairline(around view: UIView?) -> StackableHairline {
         return .init(type: .around(view))
     }
-    
     /// Add hairlines between each visible view in `views`.
     static func hairlines(between views: [UIView]) -> [StackableHairline] {
         let pairs = zip(views, views.dropFirst())
