@@ -81,7 +81,7 @@ public extension StackableExtension where ExtendedType == UIStackView {
         return .init(type: .spaceBefore(view, space))
     }
     
-    /// Add a hairline between two views. Hairline will be visible if both views are visible.
+    /// Add a space between two views. Space will be visible if both views are visible.
     /// - Parameters:
     ///   - view1: The  view the space should be inserted after, and whose visibility should be monitored.
     ///   - view2: The  view the space should be inserted before, and whose visibility should be monitored.
