@@ -364,7 +364,7 @@ extension StackableHairline: Stackable {
         )
         
         // Hairline is only visible if all associated views are visible. For example, a `.between` hairline should only be visible if both provided views are visible.
-        hairline.bindVisible(toAllVisible: allViews)
+        hairline.stackable.bindVisible(toAllVisible: allViews)
         return hairline
     }
     
