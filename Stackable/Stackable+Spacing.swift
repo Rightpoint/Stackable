@@ -23,11 +23,14 @@ public struct StackableSpaceItem {
         case constantSpace(CGFloat)
         
         /// A space that is added before some view and monitors its visibility.
-        case spaceBefore(UIView, CGFloat)
+        case spaceBefore(_ view: UIView?, CGFloat)
         
         /// A space that is added after some view and monitors its visibility. More or less equivalent to `stack.setCustomSpacing`, with the exception that the space will remain present even if the view is the last arrangedSubview
-        case spaceAfter(UIView, CGFloat)
+        case spaceAfter(_ view: UIView?, CGFloat)
         
+        /// A space that is added between two views. Space will be visible if both views are visible.
+        case spaceBetween(_ view1: UIView?, _ view2: UIView?, CGFloat)
+
         /// A space that is added after some group of views, and will be visible if any member of that group is visible. Useful for spaces between sections of a list, for example.
         case spaceAfterGroup([UIView], CGFloat)
         
@@ -64,7 +67,7 @@ public extension StackableExtension where ExtendedType == UIStackView {
     ///   - view: The  view the space should be inserted after, and whose visibility should be monitored.
     ///   - space: The size of the space.
     /// - Returns: A `Stackable` that represents the space.
-    static func space(after view: UIView, _ space: CGFloat) -> StackableSpaceItem {
+    static func space(after view: UIView?, _ space: CGFloat) -> StackableSpaceItem {
         return .init(type: .spaceAfter(view, space))
     }
     
@@ -74,10 +77,29 @@ public extension StackableExtension where ExtendedType == UIStackView {
      ///   - view: The  view the space should be inserted before, and whose visibility should be monitored.
      ///   - space: The size of the space.
      /// - Returns: A `Stackable` that represents the space.
-    static func space(before view: UIView, _ space: CGFloat) -> StackableSpaceItem {
+    static func space(before view: UIView?, _ space: CGFloat) -> StackableSpaceItem {
         return .init(type: .spaceBefore(view, space))
     }
     
+    /// Add a space between two views. Space will be visible if both views are visible.
+    /// - Parameters:
+    ///   - view1: The  view the space should be inserted after, and whose visibility should be monitored.
+    ///   - view2: The  view the space should be inserted before, and whose visibility should be monitored.
+    ///   - space: The size of the space.
+    /// - Returns: A `Stackable` that represents the space.
+    static func spaceBetween(_ view1: UIView?, _ view2: UIView?, _ space: CGFloat) -> StackableSpaceItem {
+        return .init(type: .spaceBetween(view1, view2, space))
+    }
+    
+    /// Add spaces between each visible view in `views`.
+    /// - Parameters:
+    ///   - views: An array of views, of which each pair will receive a space between them.
+    ///   - space: The size of the space.
+    /// - Returns: A `Stackable` that represents the space.
+    static func spaces(between views: [UIView], _ space: CGFloat) -> [StackableSpaceItem] {
+        let pairs = zip(views, views.dropFirst())
+        return pairs.map { UIStackView.stackable.spaceBetween($0.0, $0.1, space) }
+    }
     
     /// Add a space after some group of views. Space wiill be visible if any member of that group is visible.
     /// Useful for spaces between sections of a list, for example.
@@ -88,7 +110,6 @@ public extension StackableExtension where ExtendedType == UIStackView {
     static func space(afterGroup group: [UIView], _ space: CGFloat) -> StackableSpaceItem {
         return .init(type: .spaceAfterGroup(group, space))
     }
-    
     
     /// Add a space to the stackView. Does not monitor visibility of any arrangedSubview, and will not hide for any reason.
     /// - Parameter space: The size of the space
@@ -226,6 +247,7 @@ extension StackableSpaceItem: Stackable {
             stackView.addArrangedSubview(spacer)
 
         case let .spaceBefore(view, space):
+            guard let view = view else { return }
             let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
@@ -235,6 +257,7 @@ extension StackableSpaceItem: Stackable {
             spacer.stackable.bindVisible(to: view)
 
         case let .spaceAfter(view, space):
+            guard let view = view else { return }
             let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
             NSLayoutConstraint.activate([
@@ -243,6 +266,16 @@ extension StackableSpaceItem: Stackable {
             stackView.stackable.insertArrangedSubview(spacer, afterArrangedSubview: view)
             spacer.stackable.bindVisible(to: view)
 
+        case let .spaceBetween(view1, view2, space):
+            guard let view1 = view1, let view2 = view2 else { return }
+            let spacer = StackableSpacer()
+            spacer.setContentHuggingPriority(.required, for: stackView.axis)
+            NSLayoutConstraint.activate([
+                spacer.dimension(along: stackView.axis).constraint(equalToConstant: space)
+            ])
+            stackView.stackable.insertArrangedSubview(spacer, afterArrangedSubview: view1)
+            spacer.bindVisible(toAllVisible: [view1, view2])
+            
         case let .spaceAfterGroup(views, space):
             let spacer = StackableSpacer()
             spacer.setContentHuggingPriority(.required, for: stackView.axis)
