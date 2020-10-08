@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Type that acts as a generic extension point for all `StackableExtended` types.
 public class StackableExtension<ExtendedType> {

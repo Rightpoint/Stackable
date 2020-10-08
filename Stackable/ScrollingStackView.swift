@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A `UIStackView` in a `UIScrollView`, whose stackView height will prefer to be at least the size of the frame of the scrollview.
 /// If content grows beyond the frame, will allow for scrolling.

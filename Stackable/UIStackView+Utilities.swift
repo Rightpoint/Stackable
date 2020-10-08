@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - UIStackView Utilities
 extension StackableExtension where ExtendedType == UIStackView {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: Bind Visible
 // Use this pattern to monitor `.isHidden` of some other view, and update `self.isHidden` to match.

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum StackableAccessibilityID {
     public static let space = "com.rightpoint.stackable.space"
