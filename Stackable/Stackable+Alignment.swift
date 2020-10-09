@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// `StackableViewItem` carries information about how to build a source view, as well as any manipulations that need to be performed before being added to a stackView
 public struct StackableViewItem {

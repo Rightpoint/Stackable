@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - UIStackView Utilities
 extension StackableExtension where ExtendedType == UIStackView {

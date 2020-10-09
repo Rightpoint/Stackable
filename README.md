@@ -28,13 +28,6 @@ stack.stackable.add([
 
 <img src="https://github.com/Rightpoint/Stackable/blob/develop/docs/MenuExampleRender.png" height="600">
 
-Stackable is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'RPStackable'
-```
-
 ## Views
 **Stackable** includes built-in support for all `UIView` subclasses.
 
@@ -251,10 +244,12 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+* iOS 12.0+
+
 ## Installation
 
-Stackable is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Stackable is available as a Swift Package. You can also install it through 
+[CocoaPods](https://cocoapods.org) by adding the following line to your Podfile:
 
 ```ruby
 pod 'RPStackable'
