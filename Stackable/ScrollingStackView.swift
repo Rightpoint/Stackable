@@ -6,7 +6,6 @@
 //  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /// A `UIStackView` in a `UIScrollView`, whose stackView height will prefer to be at least the size of the frame of the scrollview.

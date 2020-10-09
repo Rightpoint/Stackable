@@ -6,7 +6,6 @@
 //  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /// `StackableHairline` carries information about where to build a hairline, as well as any manipulations that need to be performed before being added to a stackView.

@@ -6,7 +6,6 @@
 //  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 // MARK: Bind Visible

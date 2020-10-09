@@ -6,7 +6,6 @@
 //  Copyright © 2020 Rightpoint. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /// Options to specify how a view adjusts its content when its size is different than its intrinsic value.
