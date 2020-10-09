@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Stackable",
+    name: "RPStackable",
     platforms: [
         .iOS(.v12),
     ],
