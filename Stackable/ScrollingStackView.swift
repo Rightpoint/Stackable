@@ -51,7 +51,7 @@ open class ScrollingStackView: UIScrollView {
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentView.heightAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.heightAnchor),
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: layoutMarginsGuide.heightAnchor),
             contentView.widthAnchor.constraint(equalTo: widthAnchor),
         ])
         
