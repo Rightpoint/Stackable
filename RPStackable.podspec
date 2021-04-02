@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'RPStackable'
   s.module_name      = "Stackable"
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'Stackable is a delightful and declarative set of utilities for UIStackView.'
 
 # This description is used to generate tags and improve search results.
