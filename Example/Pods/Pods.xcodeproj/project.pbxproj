@@ -51,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00859539261750B70066A054 /* RPStackable.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = RPStackable.podspec; sourceTree = "<group>"; };
 		0355CC78CD9CA02F34BC42EA2BF0C326 /* Pods-Stackable_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Stackable_Tests-dummy.m"; sourceTree = "<group>"; };
 		085A69BC48B1DCC8C1AB99A9284AEF81 /* Stackable+Extended.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Stackable+Extended.swift"; path = "Stackable/Stackable+Extended.swift"; sourceTree = "<group>"; };
 		13D2FD1C0AF3B25298D70588FC09F57E /* Stackable+Spacing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Stackable+Spacing.swift"; path = "Stackable/Stackable+Spacing.swift"; sourceTree = "<group>"; };
@@ -65,11 +66,10 @@
 		42B4FA28DF8EF01EA89EB59ABF6F82E7 /* Stackable+A11y.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Stackable+A11y.swift"; path = "Stackable/Stackable+A11y.swift"; sourceTree = "<group>"; };
 		43634F0920CDCA2D2A9AA52F6C4BFB79 /* Pods-Stackable_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Stackable_Example.modulemap"; sourceTree = "<group>"; };
 		436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		47B2BA004B897D31288ED858F7E23271 /* Stackable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Stackable.framework; path = RPStackable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47B2BA004B897D31288ED858F7E23271 /* Stackable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stackable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A643C58813D399E72D9D44AA28D17BD /* RPStackable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RPStackable.release.xcconfig; sourceTree = "<group>"; };
 		4FCC8AB90F0F46324B45E5CA6000FB70 /* UIView+BindVisible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+BindVisible.swift"; sourceTree = "<group>"; };
 		50FE3FADFB76B81ECD464DD11A92FB1A /* MenuExampleRender.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = MenuExampleRender.png; path = docs/MenuExampleRender.png; sourceTree = "<group>"; };
-		55867BC28EECE67E64AAF2C371A783DB /* RPStackable.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = RPStackable.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		55D81BE3605C31DA730FF5B8A6ED2283 /* Pods-Stackable_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Stackable_Example-frameworks.sh"; sourceTree = "<group>"; };
 		6593DCF8AD94B4248A1DDF9C0DA30C51 /* Pods-Stackable_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Stackable_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		65F77B7DE698B478A5327EAFF5EFBFA1 /* RPStackable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RPStackable.debug.xcconfig; sourceTree = "<group>"; };
@@ -78,20 +78,20 @@
 		8A6DC3C4C69DEBD369CC8557086EECFD /* Pods-Stackable_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Stackable_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		8A99495B8974D0549BFB44B949B66651 /* LogoRender.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = LogoRender.png; path = docs/LogoRender.png; sourceTree = "<group>"; };
 		948FC14BD21F6E906075239007BFCB73 /* RPStackable-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "RPStackable-Info.plist"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9D9EEC746EBAE4677092224BFB9CBDC9 /* Pods-Stackable_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Stackable_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9EED67DE381D4571DFAC85D265D763EF /* Stackable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stackable.swift; path = Stackable/Stackable.swift; sourceTree = "<group>"; };
 		A2D37288229B758FBFA75ED1ABBC0780 /* Pods-Stackable_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Stackable_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		A651FB9C3740BD2E96D1C4B879589F70 /* AlignmentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AlignmentView.swift; sourceTree = "<group>"; };
 		AA26046D1DB60D96B8F73D24510252AD /* RPStackable-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RPStackable-prefix.pch"; sourceTree = "<group>"; };
 		AA8B9746E53F83545ED2CB3A5C6C8E02 /* Pods-Stackable_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Stackable_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		AD4563B0956C0E7B0A09EE7121850023 /* Pods_Stackable_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Stackable_Tests.framework; path = "Pods-Stackable_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD4563B0956C0E7B0A09EE7121850023 /* Pods_Stackable_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stackable_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC29B3C5344A05D0AB4E81FEEB562DD /* RPStackable-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RPStackable-umbrella.h"; sourceTree = "<group>"; };
-		AF2CBFB4C833B97579F26D40F6BF7BE5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		B1ACEEB759B0567367808A7488F0F692 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		AF2CBFB4C833B97579F26D40F6BF7BE5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B1ACEEB759B0567367808A7488F0F692 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BCCF0536FB44CCE092E92C3DD15D8988 /* ScrollingStackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScrollingStackView.swift; path = Stackable/ScrollingStackView.swift; sourceTree = "<group>"; };
 		C6B7A35CEB811FC8A5BA60A9A78EAADA /* Pods-Stackable_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Stackable_Tests.modulemap"; sourceTree = "<group>"; };
-		C6D61AC1C5889FA2D794260BF34B4E7B /* Pods_Stackable_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Stackable_Example.framework; path = "Pods-Stackable_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6D61AC1C5889FA2D794260BF34B4E7B /* Pods_Stackable_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stackable_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A7B9B04D7F18F6063713DD29104A1E /* Pods-Stackable_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Stackable_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		D4DD0ED8650D84C544D081BF64D5EF85 /* RPStackable.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = RPStackable.modulemap; sourceTree = "<group>"; };
 		D5987507987EA6614EA3CB1EC30DE3E4 /* Pods-Stackable_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Stackable_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 				8A99495B8974D0549BFB44B949B66651 /* LogoRender.png */,
 				50FE3FADFB76B81ECD464DD11A92FB1A /* MenuExampleRender.png */,
 				AF2CBFB4C833B97579F26D40F6BF7BE5 /* README.md */,
-				55867BC28EECE67E64AAF2C371A783DB /* RPStackable.podspec */,
+				00859539261750B70066A054 /* RPStackable.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
@@ -801,8 +801,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
