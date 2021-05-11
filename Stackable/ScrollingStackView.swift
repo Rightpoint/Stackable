@@ -56,7 +56,7 @@ open class ScrollingStackView: UIScrollView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.clipsToBounds = false
 
-        topSafeAreaConstraint = contentView.topAnchor.constraint(equalTo: topAnchor, constant: layoutMargins.top)
+        topSafeAreaConstraint = contentView.topAnchor.constraint(equalTo: topAnchor, constant: safeAreaInsets.top)
         topSafeAreaConstraint?.isActive = true
 
         bottomSafeAreaConstraint = contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: safeAreaInsets.bottom)
