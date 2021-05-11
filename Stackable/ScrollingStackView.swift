@@ -35,29 +35,44 @@ open class ScrollingStackView: UIScrollView {
         return super.touchesShouldCancel(in: view)
     }
 
+    open override func safeAreaInsetsDidChange() {
+        super.safeAreaInsetsDidChange()
+        topSafeAreaConstraint?.constant = safeAreaInsets.top
+        bottomSafeAreaConstraint?.constant = safeAreaInsets.bottom
+    }
+
+    var topSafeAreaConstraint: NSLayoutConstraint?
+    var bottomSafeAreaConstraint: NSLayoutConstraint?
+
     /// A container used to enforce that the stack content stays at least the height of the frame.
     private let contentView = UIView()
     
     public init() {
         super.init(frame: .zero)
 
+        contentInsetAdjustmentBehavior = .never
+
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.clipsToBounds = false
-        
+
+        topSafeAreaConstraint = contentView.topAnchor.constraint(equalTo: topAnchor, constant: layoutMargins.top)
+        topSafeAreaConstraint?.isActive = true
+
+        bottomSafeAreaConstraint = contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: safeAreaInsets.bottom)
+        bottomSafeAreaConstraint?.isActive = true
+
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            contentView.heightAnchor.constraint(greaterThanOrEqualTo: layoutMarginsGuide.heightAnchor),
-            contentView.widthAnchor.constraint(equalTo: widthAnchor),
+
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.heightAnchor),
+            contentView.widthAnchor.constraint(equalTo: frameLayoutGuide.widthAnchor),
         ])
-        
+
         contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
