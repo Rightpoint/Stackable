@@ -21,5 +21,9 @@ let package = Package(
             name: "Stackable",
             dependencies: [],
             path: "Stackable"),
+        .testTarget(
+            name: "StackableTests",
+            dependencies: ["Stackable"],
+            path: "Example/Tests"),
     ]
 )
