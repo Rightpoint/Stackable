@@ -102,7 +102,7 @@ extension StackableView {
 
 // MARK: - UIStackView Public API
 extension UIView: StackableExtended {}
-extension StackableExtension where ExtendedType == UIStackView {
+extension StackableExtension where ExtendedType: UIStackView {
 
     /**
      Adds a `Stackable` item to the stackView.
