@@ -411,10 +411,6 @@ public extension UIStackView {
         static var hairlineColor = "hairlineColor"
         static var hairlineThickness = "hairlineThickness"
         static var hairlineProvider = "hairlineProvider"
-
-        static var staticHairlineColor = "staticHairlineColor"
-        static var staticHairlineThickness = "staticHairlineThickness"
-        static var staticHairlineProvider = "staticHairlineProvider"
     }
     
     fileprivate struct Default {
@@ -445,20 +441,20 @@ public extension StackableExtension where ExtendedType: UIStackView {
 
     /// Static `UIStackView` color override. Ultimate styling will prefer hairline-instance config first, then `UIStackView` instance config.
     static var hairlineColor: UIColor? {
-        get { return objc_getAssociatedObject(self, &UIStackView.AssociatedKeys.staticHairlineColor) as? UIColor }
-        set { objc_setAssociatedObject(self, &UIStackView.AssociatedKeys.staticHairlineColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { return objc_getAssociatedObject(self, &UIStackView.AssociatedKeys.hairlineColor) as? UIColor }
+        set { objc_setAssociatedObject(self, &UIStackView.AssociatedKeys.hairlineColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     /// Static `UIStackView` thickness override. Ultimate styling will prefer hairline-instance config first, then `UIStackView` instance config.
     static var hairlineThickness: CGFloat? {
-        get { return objc_getAssociatedObject(self, &UIStackView.AssociatedKeys.staticHairlineThickness) as? CGFloat }
-        set { objc_setAssociatedObject(self, &UIStackView.AssociatedKeys.staticHairlineThickness, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { return objc_getAssociatedObject(self, &UIStackView.AssociatedKeys.hairlineThickness) as? CGFloat }
+        set { objc_setAssociatedObject(self, &UIStackView.AssociatedKeys.hairlineThickness, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     /// Static `UIStackView` hairlineProvider override. Ultimate styling will prefer `UIStackView` instance config.
     static var hairlineProvider: StackableHairlineProvider? {
-        get { return objc_getAssociatedObject(self, &UIStackView.AssociatedKeys.staticHairlineProvider) as? StackableHairlineProvider }
-        set { objc_setAssociatedObject(self, &UIStackView.AssociatedKeys.staticHairlineProvider, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { return objc_getAssociatedObject(self, &UIStackView.AssociatedKeys.hairlineProvider) as? StackableHairlineProvider }
+        set { objc_setAssociatedObject(self, &UIStackView.AssociatedKeys.hairlineProvider, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
 }
