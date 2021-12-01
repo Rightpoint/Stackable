@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - UIStackView Utilities
-extension StackableExtension where ExtendedType == UIStackView {
+extension StackableExtension where ExtendedType: UIStackView {
     
     /// Removes all `stack.arrangedSubviews` from the `UIStackView`
     public func removeAllArrangedSubviews() {

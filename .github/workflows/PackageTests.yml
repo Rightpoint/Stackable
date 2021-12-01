@@ -1,0 +1,17 @@
+name: PackageTests
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      run: xcodebuild test -scheme RPStackable -destination 'platform=iOS Simulator,name=iPhone 12'

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension StackableExtension where ExtendedType == UIStackView {
+public extension StackableExtension where ExtendedType: UIStackView {
 
     /// Debug API extension point
     var debug: DebugStackableExtension  {

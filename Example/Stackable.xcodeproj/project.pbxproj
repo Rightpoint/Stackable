@@ -17,6 +17,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		B45CA0132756A40000D0AA70 /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CA0122756A40000D0AA70 /* InheritanceTests.swift */; };
 		CC72A6DDDA4E7D960CD3D10E /* Pods_Stackable_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0285B0ADF6F8DDE8F69E6BD5 /* Pods_Stackable_Tests.framework */; };
 		EC5575EECB7557FB0D2EFDA7 /* Pods_Stackable_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680380F6848D1F3CCB8C984C /* Pods_Stackable_Example.framework */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		680380F6848D1F3CCB8C984C /* Pods_Stackable_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stackable_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32187B246E3626547391D4F /* Pods-Stackable_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stackable_Example.debug.xcconfig"; path = "Target Support Files/Pods-Stackable_Example/Pods-Stackable_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		B45CA0122756A40000D0AA70 /* InheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InheritanceTests.swift; sourceTree = "<group>"; };
 		C0FB5FA864AC1DCB745092FA /* Pods-Stackable_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stackable_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Stackable_Tests/Pods-Stackable_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C8B792787C4B69CB30904496 /* Pods-Stackable_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stackable_Example.release.xcconfig"; path = "Target Support Files/Pods-Stackable_Example/Pods-Stackable_Example.release.xcconfig"; sourceTree = "<group>"; };
 		EA360EB26E10CF4FC56BDD6E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B45CA0122756A40000D0AA70 /* InheritanceTests.swift */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				00392CDF24EAF2FC001E2F99 /* MemoryTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
@@ -364,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B45CA0132756A40000D0AA70 /* InheritanceTests.swift in Sources */,
 				00392CE024EAF2FC001E2F99 /* MemoryTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 			);

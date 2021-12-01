@@ -21,7 +21,7 @@ internal enum DebugAccessibilityID {
     public static let margin = "com.rightpoint.stackable.debug.margin"
 }
 
-public extension StackableExtension where ExtendedType == UIStackView {
+public extension StackableExtension where ExtendedType: UIStackView {
 
     typealias axID = StackableAccessibilityID
     

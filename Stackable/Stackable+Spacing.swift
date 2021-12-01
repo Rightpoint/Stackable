@@ -53,7 +53,7 @@ public enum StackableFlexibleSpace {
 
 // MARK: - Public API
 
-public extension StackableExtension where ExtendedType == UIStackView {
+public extension StackableExtension where ExtendedType: UIStackView {
     /// Add a space to the stackView. If added after a view, will mirror the visibility of that view.
     /// - Parameter space: The size of the space.
     /// - Returns: A `Stackable` that represents the space.
