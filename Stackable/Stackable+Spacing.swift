@@ -322,6 +322,7 @@ internal class StackableSpacer: UIView {
     init() {
         super.init(frame: .zero)
         accessibilityIdentifier = UIStackView.stackable.axID.space
+        isUserInteractionEnabled = false
     }
     
     required init?(coder: NSCoder) {
